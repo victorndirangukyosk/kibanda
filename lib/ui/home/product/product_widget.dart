@@ -33,7 +33,7 @@ class _ProductWidgetState extends State<ProductWidget> {
     });
     var selectedVariation = widget.product.variations![0];
     return SizedBox(
-      width: 300,
+      width: 200,
       child: Container(
         padding: EdgeInsets.all(4),
         decoration: BoxDecoration(
@@ -249,7 +249,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                       padding: EdgeInsetsDirectional.all(0),
                       child: Container(
                           decoration: BoxDecoration(
-                              color: Palette.orangeColor,
+                              color: Palette.greenColor,
                               borderRadius: BorderRadius.circular(8)),
                           height: 32,
                           width: 140,

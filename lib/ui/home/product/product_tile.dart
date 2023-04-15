@@ -23,6 +23,26 @@ class ProductTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 8, bottom: 8),
       child: ListTile(
+        trailing: GestureDetector(
+            onTap: () async {
+              HapticFeedback.selectionClick();
+              await showCupertinoModalPopup(
+                  context: context,
+                  builder: (context) => Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ProductWidget(
+                                product: product,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ));
+            },
+            child: Icon(CupertinoIcons.add_circled_solid)),
         enableFeedback: true,
         dense: false,
         shape: RoundedRectangleBorder(
@@ -30,24 +50,7 @@ class ProductTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(20), //<-- SEE HERE
         ),
         contentPadding: EdgeInsets.all(20.0),
-        onTap: () async {
-          HapticFeedback.selectionClick();
-          await showCupertinoModalPopup(
-              context: context,
-              builder: (context) => Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ProductWidget(
-                            product: product,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ));
-        },
+        onTap: () async {},
         leading: SizedBox(
           width: 100,
           height: 100,
