@@ -20,100 +20,109 @@ class ProductTile extends StatelessWidget {
         .state
         .any((element) => element.product_id == product.product_id);
 
-    return ListTile(
-      contentPadding: EdgeInsets.all(0),
-      onTap: () async {
-        HapticFeedback.selectionClick();
-        await showCupertinoModalPopup(
-            context: context,
-            builder: (context) => Center(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ProductWidget(
-                          product: product,
+    return Padding(
+      padding: const EdgeInsets.only(top: 8, bottom: 8),
+      child: ListTile(
+        enableFeedback: true,
+        dense: false,
+        shape: RoundedRectangleBorder(
+          side: BorderSide(width: 0.5),
+          borderRadius: BorderRadius.circular(20), //<-- SEE HERE
+        ),
+        contentPadding: EdgeInsets.all(20.0),
+        onTap: () async {
+          HapticFeedback.selectionClick();
+          await showCupertinoModalPopup(
+              context: context,
+              builder: (context) => Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ProductWidget(
+                            product: product,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ));
-      },
-      leading: SizedBox(
-        width: 100,
-        height: 100,
-        child: GestureDetector(
-          onTap: () {
-            showCupertinoModalPopup(
-                context: context,
-                builder: (context) {
-                  return CupertinoPopupSurface(
-                    isSurfacePainted: false,
-                    child: CachedNetworkImage(
-                      imageUrl: product.image!,
-                      fit: BoxFit.fill,
-                    ),
-                  );
-                });
-          },
-          child: CachedNetworkImage(
-            imageUrl: product.thumb!,
+                  ));
+        },
+        leading: SizedBox(
+          width: 100,
+          height: 100,
+          child: GestureDetector(
+            onTap: () {
+              showCupertinoModalPopup(
+                  context: context,
+                  builder: (context) {
+                    return CupertinoPopupSurface(
+                      isSurfacePainted: false,
+                      child: CachedNetworkImage(
+                        imageUrl: product.image!,
+                        fit: BoxFit.fill,
+                      ),
+                    );
+                  });
+            },
+            child: CachedNetworkImage(
+              imageUrl: product.thumb!,
+            ),
           ),
         ),
-      ),
-      title: Column(
-        children: [
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  product.name!,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+        title: Column(
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    product.name!,
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                  ),
                 ),
-              ),
-              inCart
-                  ? Icon(
-                      CupertinoIcons.cart,
-                      color: Palette.orangeColor,
-                    )
-                  : Container()
-            ],
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: Row(
-                  children: [
-                    Text(
-                      'Kshs',
-                      style:
-                          TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(width: 10),
-                    Text(
-                      product.price!,
-                      style:
-                          TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(width: 10),
-                    Text(
-                      'per',
-                      style:
-                          TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      product.unit!,
-                      style:
-                          TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
-                    ),
-                  ],
+                inCart
+                    ? Icon(
+                        CupertinoIcons.cart,
+                        color: Palette.orangeColor,
+                      )
+                    : Container()
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: Row(
+                    children: [
+                      Text(
+                        'Kshs',
+                        style: TextStyle(
+                            fontSize: 10, fontWeight: FontWeight.w600),
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        product.price!,
+                        style: TextStyle(
+                            fontSize: 12, fontWeight: FontWeight.w600),
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        'per',
+                        style: TextStyle(
+                            fontSize: 10, fontWeight: FontWeight.w600),
+                      ),
+                      SizedBox(width: 5),
+                      Text(
+                        product.unit!,
+                        style: TextStyle(
+                            fontSize: 12, fontWeight: FontWeight.w600),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
