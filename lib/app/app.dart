@@ -30,9 +30,11 @@ import 'package:kibanda_kb/cubits/cubit/ui_cubits/transaction_top_index_cubit.da
 import 'package:kibanda_kb/cubits/cubit/validate_order_cubit.dart';
 import 'package:kibanda_kb/cubits/cubit/wishlist_cubit.dart';
 import 'package:kibanda_kb/cubits/customer_address/customer_address_cubit.dart';
+import 'package:kibanda_kb/cubits/kibanda/create_kibanda_cubit.dart';
 import 'package:kibanda_kb/cubits/kibandalist/kibandalist_cubit.dart';
 import 'package:kibanda_kb/cubits/login_cubit/login_cubit.dart';
 import 'package:kibanda_kb/cubits/my_orders_cubit/my_orders_cubit.dart';
+import 'package:kibanda_kb/cubits/obscure_password_cubit.dart';
 import 'package:kibanda_kb/cubits/order_details_cubit/order_details_cubit.dart';
 import 'package:kibanda_kb/cubits/product_category_cubit.dart';
 import 'package:kibanda_kb/cubits/select_date_timeslot/select_date_cubit.dart';
@@ -115,6 +117,9 @@ class KwikBasketKibandaApp extends StatelessWidget {
         BlocProvider(create: (context) => SaveToBasketCubit()),
         BlocProvider(create: (context) => ValidateOrderCubit()),
         BlocProvider(create: (context) => WishlistCubit()),
+
+         BlocProvider(create: (context) => CreateKibandaCubit()),
+         BlocProvider(create: (context) => ObscurePasswordCubit(false)),
         BlocProvider(create: (context) => CustomerAddressCubit()),
         // BlocProvider(create: (context) => FeaturedProductCubit()),
         BlocProvider(create: (context) => PlaceOrderCubit()),
