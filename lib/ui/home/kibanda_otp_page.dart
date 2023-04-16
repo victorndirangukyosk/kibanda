@@ -1,5 +1,4 @@
-
-
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +6,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:kibanda_kb/configuration/palette/palette.dart';
 import 'package:kibanda_kb/constants/constants.dart';
 import 'package:kibanda_kb/cubits/kibanda/create_kibanda_cubit.dart';
+import 'package:kibanda_kb/routes/router.gr.dart';
 
 class KibandaOtpPage extends StatelessWidget {
   final Map<String, dynamic> data;
@@ -55,7 +55,8 @@ class KibandaOtpPage extends StatelessWidget {
                         ...data,
                         'signup_otp': otpController.text,
                       });
-                      
+
+                      AutoRouter.of(context).push(MainHomeRoute());
                     },
                   );
                 }, loading: () {

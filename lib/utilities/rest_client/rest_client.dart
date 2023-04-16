@@ -17,6 +17,12 @@ class RestClient {
   String customerURL = 'https://www.kwikbasket.com/api/';
   static String url = 'https://stage.shop.kwikbasket.com';
 
+  // Stage URL
+  String kwikUrl = 'https://stage.shop.kwikbasket.com';
+
+  // Production URL
+  // String kwikUrl = 'https://www.kwikbasket.com';
+
   String imageURL = '$url/image/';
 
   RestClient({BaseOptions? options}) {
