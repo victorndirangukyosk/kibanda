@@ -341,11 +341,11 @@ class _HomeWidgetState extends State<HomeWidget> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-                          builder: ((context) => KibandaRegForm())));
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: ((context) => KibandaRegForm())));
         },
         tooltip: 'Add a Kibanda',
-        child:  const Icon(Icons.person_add),
+        child: const Icon(Icons.person_add),
       ),
       appBar: AppBar(
         bottomOpacity: 0.9,
@@ -662,7 +662,7 @@ class MoreWidget extends StatelessWidget {
                                       Expanded(
                                           child: CupertinoButton(
                                               onPressed: () async {
-                                                await context
+                                                context
                                                     .read<TokenCubit>()
                                                     .clear();
                                                 await context
