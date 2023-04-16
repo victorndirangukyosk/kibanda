@@ -39,6 +39,7 @@ import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:badges/badges.dart' as badges;
 
 import '../../authentication/customer_cookie_cubit.dart';
+import 'kibanda_reg_form.dart';
 
 class MainHomePage extends StatefulWidget {
   const MainHomePage({Key? key}) : super(key: key);
@@ -71,7 +72,7 @@ class _MainHomePageState extends State<MainHomePage> {
         },
         currentIndex: context.watch<HomeBottomIndexCubit>().state,
         items: [
-        const  BottomNavigationBarItem(
+          const BottomNavigationBarItem(
               icon: Icon(
                 CupertinoIcons.home,
               ),
@@ -338,6 +339,14 @@ class _HomeWidgetState extends State<HomeWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+                          builder: ((context) => KibandaRegForm())));
+        },
+        tooltip: 'Add a Kibanda',
+        child:  const Icon(Icons.person_add),
+      ),
       appBar: AppBar(
         bottomOpacity: 0.9,
         automaticallyImplyLeading: false,

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:kibanda_kb/authentication/customer_token.dart';
 import 'package:kibanda_kb/models/api_response/api_response.dart';
@@ -53,6 +54,40 @@ class ApiService {
       throw error.message;
     } catch (e) {
       throw e.toString();
+    }
+  }
+
+  ///This method posts data to the API via the [Dio] in the [restClient]
+  ///Returns a dynamic
+  static Future<Map<String, dynamic>> postKwik(
+      {required data, required String path, Options? options}) async {
+    try {
+      Dio dio = Dio();
+      if (kDebugMode) {
+        //The logger interceptor
+        dio.interceptors.add(PrettyDioLogger(
+            requestHeader: true,
+            requestBody: true,
+            responseBody: true,
+            responseHeader: true,
+            error: true,
+            compact: true,
+            maxWidth: 90));
+      }
+
+      ///Get the response after posting
+      var response = await dio.post('${restClient.kwikUrl}$path',
+          data: data, options: options);
+
+      return response.data;
+    }
+
+    /// Throw the dio error
+    on DioError catch (e) {
+      ApiResponse apiResponse = ApiResponse.fromJson(e.response!.data);
+      throw apiResponse.message!;
+    } catch (e) {
+      throw 'An error has occured';
     }
   }
 
