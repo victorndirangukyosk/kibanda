@@ -397,7 +397,7 @@ class _CartProductWidgetState extends State<CartProductWidget> {
                       ///From Here
                       Text.rich(TextSpan(
                           text:
-                              '${widget.product.left_symbol_currency} ${(context.watch<CartProductMetadataCubit>().state.where((element) => element.product_id == int.parse(widget.product.product_id!)).first.variation['special'])} ',
+                              '${widget.product.left_symbol_currency} ${(context.watch<CartProductMetadataCubit>().state.where((element) => element.product_id == int.parse(widget.product.product_id!)).first.variation['price'])} ',
                           style: TextStyle(
                               fontSize: 13, fontWeight: FontWeight.w700),
                           children: [
@@ -405,7 +405,7 @@ class _CartProductWidgetState extends State<CartProductWidget> {
                                 text:
                                     'per ${(context.watch<CartProductMetadataCubit>().state.where((element) => element.product_id == int.parse(widget.product.product_id!)).first.variation['unit'])}',
                                 style: TextStyle(
-                                    fontSize: 12, fontWeight: FontWeight.w400))
+                                    fontSize: 13, fontWeight: FontWeight.w400))
                           ])),
                       SizedBox(
                         height: 45,
