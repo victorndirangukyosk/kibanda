@@ -1,5 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
-
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:badges/badges.dart';
 import 'package:dropdown_search/dropdown_search.dart';
@@ -560,7 +560,12 @@ class _HomeWidgetState extends State<HomeWidget> {
                     //     .toList(),
                   );
                 }, orElse: () {
-                  return Container();
+                  return Align(
+                    alignment: Alignment.bottomCenter,
+                    child: SvgPicture.asset(
+                      'assets/svgs/Lazy.svg',
+                    ),
+                  );
                 });
               },
             ),

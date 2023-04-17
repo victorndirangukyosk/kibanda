@@ -10,7 +10,7 @@ import 'package:kibanda_kb/utilities/rest_client/rest_client.dart';
 import 'package:kibanda_kb/utilities/rest_client/rest_client_customer.dart';
 import 'package:path_provider/path_provider.dart';
 
-void main() async {
+void main() async { 
   WidgetsFlutterBinding.ensureInitialized();
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString('google_fonts/OFL.txt');
