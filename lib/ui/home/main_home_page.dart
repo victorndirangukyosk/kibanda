@@ -493,7 +493,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 .read<ProductCategoryCubit>()
                                 .getProductCategories();
                             AutoRouter.of(context)
-                                .push(ExpandedCategoriesRoute());
+                                .push(const ExpandedCategoriesRoute());
                             // context
                             //     .read<FeaturedProductCubit>()
                             //     .getFeaturedProducts(
@@ -549,7 +549,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                   return ListView.builder(
                     controller: _scrollController,
                     itemCount: products.length,
-                    physics: BouncingScrollPhysics(
+                    physics: const BouncingScrollPhysics(
                         parent: AlwaysScrollableScrollPhysics()),
                     itemBuilder: (BuildContext context, int index) {
                       return ProductTile(product: products[index]);
@@ -587,7 +587,7 @@ class MoreWidget extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.white,
         title: Row(
-          children: [
+          children:const [
             SizedBox(
               width: 4,
             ),

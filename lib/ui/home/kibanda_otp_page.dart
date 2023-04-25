@@ -17,7 +17,7 @@ class KibandaOtpPage extends StatelessWidget {
     var otpController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Kibanda OTP'),
+        title: const Text('Kibanda OTP'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -27,16 +27,16 @@ class KibandaOtpPage extends StatelessWidget {
               Constants.kwik_logo,
               height: 40,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             TextField(
               controller: otpController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Enter 4 digit pin sent to your number',
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             BlocConsumer<CreateKibandaCubit, CreateKibandaState>(

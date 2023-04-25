@@ -28,11 +28,7 @@ class LoginPage extends StatelessWidget {
         child: LoginCard(),
       ),
       decoration: const BoxDecoration(color: Palette.orangeColor
-          // gradient: LinearGradient(
-          //     begin: Alignment.topLeft,
-          //     end: Alignment.bottomRight,
-          //     colors: [Palette.greenColor, Palette.orangeColor]
-          //     )
+          
           ),
     ));
   }
@@ -128,42 +124,7 @@ class LoginCard extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                // CupertinoButton(
-                //     child: const Text('Login'),
-                //     color: Palette.greenColor,
-                //     onPressed: () {
-                //       //TODO:UNCOMMENT THE LOGIN SIGN UP LOGIC
-                //       // AutoRouter.of(context).replace(const MainHomeRoute());
-                //       if (_formKey.currentState!.saveAndValidate()) {
-                //         context
-                //             .read<LoginCubit>()
-                //             .login(data: _formKey.currentState!.value);
-                //       }
-                //     }),
-                // ListTile(
-                //   title: const Text('Order processing'),
-                //   onTap: () {
-                //     context.read<OPSelectionCubit>().save(true);
-                //   },
-                //   leading: CupertinoSwitch(
-                //     value: context.watch<OPSelectionCubit>().state,
-                //     onChanged: (val) {
-                //       context.read<OPSelectionCubit>().toggle();
-                //     },
-                //   ),
-                // ),
-                // ListTile(
-                //   title: const Text('Delivery executive'),
-                //   onTap: () {
-                //     context.read<OPSelectionCubit>().save(false);
-                //   },
-                //   leading: CupertinoSwitch(
-                //     value: !context.watch<OPSelectionCubit>().state,
-                //     onChanged: (val) {
-                //       context.read<OPSelectionCubit>().toggle();
-                //     },
-                //   ),
-                // ),
+               
                 BlocConsumer<LoginCubit, LoginState>(
                   listener: (context, state) async {
                     if (state is LoginSuccess) {

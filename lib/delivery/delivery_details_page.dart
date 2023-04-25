@@ -21,10 +21,11 @@ import 'package:kibanda_kb/utilities/toast/toast.dart';
 import 'package:intl/intl.dart';
 
 class DeliveryDetailsPage extends StatelessWidget {
-  
   final Map<String, dynamic> orderData;
-  const DeliveryDetailsPage({Key? key, required this.orderData, })
-      : super(key: key);
+  const DeliveryDetailsPage({
+    Key? key,
+    required this.orderData,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +50,7 @@ class DeliveryDetailsPage extends StatelessWidget {
               });
         },
         builder: (context, state) {
-          return state.maybeWhen(
-            orElse: () {
+          return state.maybeWhen(orElse: () {
             return Container();
           }, loading: () {
             return const Center(
@@ -87,10 +87,10 @@ class DeliveryDetailsPage extends StatelessWidget {
                   SizedBox(
                     height: 12,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
-                      'You will be able to choose upto 5 days',
+                      ' Kibanda orders are strictly next day deliveries',
                       style: TextStyle(
                         fontSize: 12,
                       ),
@@ -398,8 +398,9 @@ class DeliveryDetailsPage extends StatelessWidget {
                             'order_reference_number': x,
                           });
                         }
-                        AutoRouter.of(context)
-                            .push(PaymentOPtionsRoute(orderData: data,));
+                        AutoRouter.of(context).push(PaymentOPtionsRoute(
+                          orderData: data,
+                        ));
                         // context.read<PlaceOrderCubit>().placeOrder(data);
                       }
                     }

@@ -8,7 +8,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:kibanda_kb/app/app.dart';
 import 'package:kibanda_kb/utilities/rest_client/rest_client.dart';
 import 'package:kibanda_kb/utilities/rest_client/rest_client_customer.dart';
-import 'package:path_provider/path_provider.dart';
+
 
 void main() async { 
   WidgetsFlutterBinding.ensureInitialized();

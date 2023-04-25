@@ -400,7 +400,7 @@ class _PaymentOPtionsPageState extends State<PaymentOPtionsPage> {
                                 .title ??
                             '',
                       });
-                     
+
                       if (context.read<HybridSelectedCubit>().state) {
                         if (context.read<HybridTypeCubit>().state == 'mpesa') {
                         } else {}
