@@ -82,7 +82,7 @@ class LoginCard extends StatelessWidget {
                   height: 40,
                 ),
                 FormBuilderTextField(
-                  name: 'email',
+                  name: 'username',
                   validator: FormBuilderValidators.compose([
                     FormBuilderValidators.required(),
                   ]),
@@ -189,7 +189,7 @@ class LoginCard extends StatelessWidget {
                           if (_formKey.currentState!.saveAndValidate()) {
                             context
                                 .read<LoginCubit>()
-                                .login(data: _formKey.currentState!.value);
+                                .kwikLogin(data: _formKey.currentState!.value);
                           }
                         });
                   },

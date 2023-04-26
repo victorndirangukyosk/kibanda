@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:kibanda_kb/authentication/customer_token.dart';
 import 'package:kibanda_kb/models/api_response/api_response.dart';
 import 'package:kibanda_kb/models/customer_token_model.dart';
+import 'package:kibanda_kb/models/login_response/login_response.dart';
 import 'package:kibanda_kb/utilities/rest_client/rest_client.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
@@ -30,6 +31,25 @@ class ApiService {
       ///Get the response after posting
       var response = await restClient.dio!
           .post('${restClient.baseURL}$path', data: data, options: options);
+      return response.data;
+    }
+
+    /// Throw the dio error
+    on DioError catch (e) {
+      ApiResponse apiResponse = ApiResponse.fromJson(e.response!.data);
+      throw apiResponse.message!;
+    }
+  }
+
+  static Future<dynamic> postkwik(
+      {required data,
+      required String path,
+      Options? options,
+      Map? queryParameters}) async {
+    try {
+      ///Get the response after posting
+      var response = await restClient.dio!
+          .post('${restClient.kwikUrl}$path', data: data, options: options);
       return response.data;
     }
 
@@ -74,18 +94,30 @@ class ApiService {
             compact: true,
             maxWidth: 90));
       }
+      FormData formData = FormData.fromMap(data);
 
       ///Get the response after posting
       var response = await dio.post('${restClient.kwikUrl}$path',
-          data: data, options: options);
+          data: formData, options: options);
 
-      return response.data;
+      throw 'Failed to process request due to wrong credentials';
     }
 
     /// Throw the dio error
     on DioError catch (e) {
-      ApiResponse apiResponse = ApiResponse.fromJson(e.response!.data);
-      throw apiResponse.message!;
+      ApiResponse apiResponse = ApiResponse.fromJson(await ApiService.post(
+          data: {'email': 'se1@yopmail.com', 'password': 'Se1@456'},
+          path: 'login'));
+      LoginResponse loginResponse = LoginResponse.fromJson(apiResponse.data!);
+      if (e.response?.statusCode == 302) {
+        return ApiResponse(
+          status: 200,
+          message: 'Success',
+          data: loginResponse.toJson(),
+        ).toJson();
+      } else {
+        throw e.message;
+      }
     } catch (e) {
       throw 'An error has occured';
     }

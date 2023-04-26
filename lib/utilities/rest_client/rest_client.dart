@@ -18,10 +18,10 @@ class RestClient {
   static String url = 'https://stage.shop.kwikbasket.com';
 
   // Stage URL
-  // String kwikUrl = 'https://stage.shop.kwikbasket.com';
+  String kwikUrl = 'https://stage.shop.kwikbasket.com';
 
   // Production URL
-  String kwikUrl = 'https://www.kwikbasket.com';
+  // String kwikUrl = 'https://www.kwikbasket.com';
 
   String imageURL = '$url/image/';
 
