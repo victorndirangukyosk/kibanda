@@ -20,11 +20,13 @@ class CreateKibandaCubit extends Cubit<CreateKibandaState> {
     emit(const CreateKibandaState.loading());
     try {
       final jwt = JWT.decode(tokenCubit.state);
+      
       await ApiService.postKwik(
           data: {
             ...data,
             'customer_group_id': 15,
-            'customer_experience_id': jwt.payload['user_id']
+            'customer_experience_id': jwt.payload['user_id'],
+            'dob': '1990-01-01'
           },
           path: '/api/customer/signup/signupByOtp',
           options: Options(
@@ -50,7 +52,8 @@ class CreateKibandaCubit extends Cubit<CreateKibandaState> {
           data: {
             ...data,
             'customer_group_id': 15,
-            'customer_experience_id': jwt.payload['user_id']
+            'customer_experience_id': jwt.payload['user_id'],
+            'dob': '1990-01-01'
           },
           path: '/api/customer/signup/signupVerifyOtp',
           options: Options(
