@@ -817,10 +817,12 @@ packages:
     dependency: transitive
     description:
       name: local_auth_android
-      sha256: c6d71620045ba84552a0e2c11c2f8782ceff4dc862f0a45cc3c3787e31cc719c
+
+      sha256: "8b565429c25f0d14c6db8bff08077411c17781da9642e393bca22973dfefae14"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.26"
+    version: "1.0.24"
+
   local_auth_ios:
     dependency: transitive
     description:
