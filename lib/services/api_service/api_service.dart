@@ -77,51 +77,70 @@ class ApiService {
     }
   }
 
-  ///This method posts data to the API via the [Dio] in the [restClient]
-  ///Returns a dynamic
-  static Future<Map<String, dynamic>> postKwik(
-      {required data, required String path, Options? options}) async {
+    static Future<dynamic> postkwiker(
+      {required data,
+      required String path,
+      Options? options,
+      Map? queryParameters}) async {
     try {
-      Dio dio = Dio();
-      if (kDebugMode) {
-        //The logger interceptor
-        dio.interceptors.add(PrettyDioLogger(
-            requestHeader: true,
-            requestBody: true,
-            responseBody: true,
-            responseHeader: true,
-            error: true,
-            compact: true,
-            maxWidth: 90));
-      }
-      FormData formData = FormData.fromMap(data);
-
       ///Get the response after posting
-      var response = await dio.post('${restClient.kwikUrl}$path',
-          data: formData, options: options);
-
-      throw 'Failed to process request due to wrong credentials';
+      var response = await restClient.dio!
+          .post('${restClient.kwikUrl}$path', data: data, options: options);
+      return response.data;
     }
 
     /// Throw the dio error
     on DioError catch (e) {
-      ApiResponse apiResponse = ApiResponse.fromJson(await ApiService.post(
-          data: {'email': 'se1@yopmail.com', 'password': 'Se1@456'},
-          path: 'login'));
-      LoginResponse loginResponse = LoginResponse.fromJson(apiResponse.data!);
-      if (e.response?.statusCode == 302) {
-        return ApiResponse(
-          status: 200,
-          message: 'Success',
-          data: loginResponse.toJson(),
-        ).toJson();
-      } else {
-        throw e.message;
-      }
-    } catch (e) {
-      throw 'An error has occured';
+      ApiResponse apiResponse = ApiResponse.fromJson(e.response!.data);
+      throw apiResponse.message!;
     }
   }
+
+  ///This method posts data to the API via the [Dio] in the [restClient]
+  ///Returns a dynamic
+  // static Future<Map<String, dynamic>> postKwik(
+  //     {required data, required String path, Options? options}) async {
+  //   try {
+  //     Dio dio = Dio();
+  //     if (kDebugMode) {
+  //       //The logger interceptor
+  //       dio.interceptors.add(PrettyDioLogger(
+  //           requestHeader: true,
+  //           requestBody: true,
+  //           responseBody: true,
+  //           responseHeader: true,
+  //           error: true,
+  //           compact: true,
+  //           maxWidth: 90));
+  //     }
+  //     FormData formData = FormData.fromMap(data);
+
+  //     ///Get the response after posting
+  //     var response = await dio.post('${restClient.kwikUrl}$path',
+  //         data: formData, options: options);
+
+  //     throw 'Failed to process request due to wrong credentials';
+  //   }
+
+  //   /// Throw the dio error
+  //   on DioError catch (e) {
+  //     ApiResponse apiResponse = ApiResponse.fromJson(await ApiService.post(
+  //         data: {'email': data['username'], 'password': data['password']},
+  //         path: 'login'));
+  //     LoginResponse loginResponse = LoginResponse.fromJson(apiResponse.data!);
+  //     if (e.response?.statusCode == 302) {
+  //       return ApiResponse(
+  //         status: 200,
+  //         message: 'Success',
+  //         data: loginResponse.toJson(),
+  //       ).toJson();
+  //     } else {
+  //       throw e.message;
+  //     }
+  //   } catch (e) {
+  //     throw 'An error has occured';
+  //   }
+  // }
 
   static Future<Map<String, dynamic>> postDataMpesa({
     required Map<String, dynamic> data,
