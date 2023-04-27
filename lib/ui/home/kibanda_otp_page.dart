@@ -6,6 +6,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:kibanda_kb/configuration/palette/palette.dart';
 import 'package:kibanda_kb/constants/constants.dart';
 import 'package:kibanda_kb/cubits/kibanda/create_kibanda_cubit.dart';
+import 'package:kibanda_kb/cubits/kibandalist/kibandalist_cubit.dart';
 import 'package:kibanda_kb/routes/router.gr.dart';
 
 class KibandaOtpPage extends StatelessWidget {
@@ -41,12 +42,16 @@ class KibandaOtpPage extends StatelessWidget {
             ),
             BlocConsumer<CreateKibandaCubit, CreateKibandaState>(
               listener: (context, state) {
-                state.maybeWhen(orElse: () {}, success: () {});
+                state.maybeWhen(
+                    orElse: () {},
+                    success: () {
+                      context.read<KibandalistCubit>().getVibandas();
+                      AutoRouter.of(context).push(const MainHomeRoute());
+                    });
               },
               builder: (context, state) {
                 return state.maybeWhen(orElse: () {
                   return CupertinoButton(
-                    child: Text('Register'),
                     color: Palette.orangeColor,
                     onPressed: () async {
                       await context
@@ -55,9 +60,8 @@ class KibandaOtpPage extends StatelessWidget {
                         ...data,
                         'signup_otp': otpController.text,
                       });
-
-                      AutoRouter.of(context).push(MainHomeRoute());
                     },
+                    child: const Text('Register'),
                   );
                 }, loading: () {
                   return SpinKitCircle(
