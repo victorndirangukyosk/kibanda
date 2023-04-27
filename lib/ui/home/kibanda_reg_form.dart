@@ -156,6 +156,7 @@ class KibandaRegForm extends StatelessWidget {
                                       data: _formKey.currentState!.value);
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: ((context) => KibandaOtpPage(
+                                     
                                       data: _formKey.currentState!.value))));
                             }
                           },

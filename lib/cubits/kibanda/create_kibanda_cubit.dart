@@ -14,7 +14,11 @@ class CreateKibandaCubit extends Cubit<CreateKibandaState> {
     emit(const CreateKibandaState.loading());
     try {
       await ApiService.postKwik(
-          data: data,
+          data: {
+            ...data,
+            'customer_group_id': 15,
+            'customer_experience_id':
+          },
           path: '/api/customer/signup/signupByOtp',
           options: Options(
             headers: {
@@ -34,7 +38,7 @@ class CreateKibandaCubit extends Cubit<CreateKibandaState> {
     emit(const CreateKibandaState.loading());
     try {
       await ApiService.postKwik(
-          data: {...data, 'customer_group_id': kDebugMode ? 14 : 15},
+          data: {...data, 'customer_group_id': 15, 'customer_experience_id' :},
           path: '/api/customer/signup/signupVerifyOtp',
           options: Options(
             headers: {
