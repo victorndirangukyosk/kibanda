@@ -90,6 +90,38 @@ class ApiService {
       throw 'An error has occured';
     }
   }
+  
+  static Future<Map<String, dynamic>> postKwi(
+      {required data, required String path, Options? options}) async {
+    try {
+      Dio dio = Dio();
+      if (kDebugMode) {
+        //The logger interceptor
+        dio.interceptors.add(PrettyDioLogger(
+            requestHeader: true,
+            requestBody: true,
+            responseBody: true,
+            responseHeader: true,
+            error: true,
+            compact: true,
+            maxWidth: 90));
+      }
+
+      ///Get the response after posting
+      var response = await dio.post('${restClient.basURL}$path',
+          data: data, options: options);
+
+      return response.data;
+    }
+
+    /// Throw the dio error
+    on DioError catch (e) {
+      ApiResponse apiResponse = ApiResponse.fromJson(e.response!.data);
+      throw apiResponse.message!;
+    } catch (e) {
+      throw 'An error has occured';
+    }
+  }
 
   static Future<Map<String, dynamic>> postDataMpesa({
     required Map<String, dynamic> data,

@@ -8,11 +8,11 @@ part 'login_as_customer_cubit.freezed.dart';
 class LoginAsCustomerCubit extends Cubit<LoginAsCustomerState> {
   LoginAsCustomerCubit() : super(LoginAsCustomerState.initial());
 
-  loggedInCustomer({required String telephone}) async {
+  loggedInCustomer({required String data}) async {
     emit(const LoginAsCustomerState.loading());
     try {
       var response = await ApiService.postCustomer(
-          data: telephone, path: 'login/loginascustomer');
+          data: data, path: 'login/loginascustomer');
       emit(LoginAsCustomerState.success());
     } catch (e) {
       emit(LoginAsCustomerState.failed(e.toString()));

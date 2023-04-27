@@ -439,7 +439,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       .save(selectedKibanda);
                                   var response = await ApiService.postCustomer(
                                       data: {
-                                        'telephone': selectedKibanda.telephone
+                                        'telephone': selectedKibanda.telephone,
+                                        'email': selectedKibanda.email
                                       },
                                       path: 'customer/login/loginascustomer');
                                   var data = response['token'];
