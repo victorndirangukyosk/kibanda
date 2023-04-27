@@ -13,7 +13,7 @@ class CreateKibandaCubit extends Cubit<CreateKibandaState> {
   createKibanda({required data}) async {
     emit(const CreateKibandaState.loading());
     try {
-      await ApiService.postKwik(
+      await ApiService.postkwiker(
           data: data,
           path: '/api/customer/signup/signupByOtp',
           options: Options(
@@ -33,7 +33,7 @@ class CreateKibandaCubit extends Cubit<CreateKibandaState> {
   verifyKibanda({required Map<String, dynamic> data}) async {
     emit(const CreateKibandaState.loading());
     try {
-      await ApiService.postKwik(
+      await ApiService.postkwiker(
           data: {...data, 'customer_group_id': kDebugMode ? 14 : 15},
           path: '/api/customer/signup/signupVerifyOtp',
           options: Options(

@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:kibanda_kb/authentication/customer_token.dart';
 import 'package:kibanda_kb/models/api_response/api_response.dart';
 import 'package:kibanda_kb/models/customer_token_model.dart';
+import 'package:kibanda_kb/models/login_response/login_response.dart';
 import 'package:kibanda_kb/utilities/rest_client/rest_client.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
@@ -40,6 +41,25 @@ class ApiService {
     }
   }
 
+  static Future<dynamic> postkwik(
+      {required data,
+      required String path,
+      Options? options,
+      Map? queryParameters}) async {
+    try {
+      ///Get the response after posting
+      var response = await restClient.dio!
+          .post('${restClient.kwikUrl}$path', data: data, options: options);
+      return response.data;
+    }
+
+    /// Throw the dio error
+    on DioError catch (e) {
+      ApiResponse apiResponse = ApiResponse.fromJson(e.response!.data);
+      throw apiResponse.message!;
+    }
+  }
+
   static Future<dynamic> getDataNoAuth(
       {required String path,
       Options? options,
@@ -57,28 +77,15 @@ class ApiService {
     }
   }
 
-  ///This method posts data to the API via the [Dio] in the [restClient]
-  ///Returns a dynamic
-  static Future<Map<String, dynamic>> postKwik(
-      {required data, required String path, Options? options}) async {
+    static Future<dynamic> postkwiker(
+      {required data,
+      required String path,
+      Options? options,
+      Map? queryParameters}) async {
     try {
-      Dio dio = Dio();
-      if (kDebugMode) {
-        //The logger interceptor
-        dio.interceptors.add(PrettyDioLogger(
-            requestHeader: true,
-            requestBody: true,
-            responseBody: true,
-            responseHeader: true,
-            error: true,
-            compact: true,
-            maxWidth: 90));
-      }
-
       ///Get the response after posting
-      var response = await dio.post('${restClient.kwikUrl}$path',
-          data: data, options: options);
-
+      var response = await restClient.dio!
+          .post('${restClient.kwikUrl}$path', data: data, options: options);
       return response.data;
     }
 
@@ -86,10 +93,54 @@ class ApiService {
     on DioError catch (e) {
       ApiResponse apiResponse = ApiResponse.fromJson(e.response!.data);
       throw apiResponse.message!;
-    } catch (e) {
-      throw 'An error has occured';
     }
   }
+
+  ///This method posts data to the API via the [Dio] in the [restClient]
+  ///Returns a dynamic
+  // static Future<Map<String, dynamic>> postKwik(
+  //     {required data, required String path, Options? options}) async {
+  //   try {
+  //     Dio dio = Dio();
+  //     if (kDebugMode) {
+  //       //The logger interceptor
+  //       dio.interceptors.add(PrettyDioLogger(
+  //           requestHeader: true,
+  //           requestBody: true,
+  //           responseBody: true,
+  //           responseHeader: true,
+  //           error: true,
+  //           compact: true,
+  //           maxWidth: 90));
+  //     }
+  //     FormData formData = FormData.fromMap(data);
+
+  //     ///Get the response after posting
+  //     var response = await dio.post('${restClient.kwikUrl}$path',
+  //         data: formData, options: options);
+
+  //     throw 'Failed to process request due to wrong credentials';
+  //   }
+
+  //   /// Throw the dio error
+  //   on DioError catch (e) {
+  //     ApiResponse apiResponse = ApiResponse.fromJson(await ApiService.post(
+  //         data: {'email': data['username'], 'password': data['password']},
+  //         path: 'login'));
+  //     LoginResponse loginResponse = LoginResponse.fromJson(apiResponse.data!);
+  //     if (e.response?.statusCode == 302) {
+  //       return ApiResponse(
+  //         status: 200,
+  //         message: 'Success',
+  //         data: loginResponse.toJson(),
+  //       ).toJson();
+  //     } else {
+  //       throw e.message;
+  //     }
+  //   } catch (e) {
+  //     throw 'An error has occured';
+  //   }
+  // }
 
   static Future<Map<String, dynamic>> postDataMpesa({
     required Map<String, dynamic> data,

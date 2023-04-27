@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -87,11 +85,23 @@ class KibandaRegForm extends StatelessWidget {
                     validator: FormBuilderValidators.compose([
                       FormBuilderValidators.required(),
                       (val) {
-                        if (val!
-                            .contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-                        } else {
-                          return 'Password must contain at least one special character and a Capital letter';
+                        if (val!.length < 6) {
+                          return 'Password must be at least 6 characters long';
                         }
+                        // Upercase, lowercase, number & special char
+                        if (!val.contains(RegExp(r'[A-Z]'))) {
+                          return 'Password must contain at least one uppercase letter';
+                        }
+                        if (!val.contains(RegExp(r'[a-z]'))) {
+                          return 'Password must contain at least one lowercase letter';
+                        }
+                        if (!val.contains(RegExp(r'[0-9]'))) {
+                          return 'Password must contain at least one number';
+                        }
+                        if (!val.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+                          return 'Password must contain at least one special character';
+                        }
+                        return null;
                       }
                     ]),
                     decoration: InputDecoration(
@@ -114,9 +124,10 @@ class KibandaRegForm extends StatelessWidget {
                     obscureText: context.watch<ObscurePasswordCubit>().state,
                     validator: FormBuilderValidators.compose([
                       FormBuilderValidators.required(),
+                      FormBuilderValidators.match(passwordController.text,
+                          errorText: 'Passwords must match'),
                       (val) {
-                        if (val!
-                            .contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+                        if (val!.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
                         } else {
                           return 'Password must contain at least one special character and a Capital letter';
                         }
@@ -141,7 +152,18 @@ class KibandaRegForm extends StatelessWidget {
                   ),
                   BlocConsumer<CreateKibandaCubit, CreateKibandaState>(
                     listener: (context, state) {
-                      state.maybeWhen(orElse: () {}, success: () {});
+                      state.maybeWhen(
+                          orElse: () {},
+                          failed: () {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text('Registration failed')));
+                          },
+                          success: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: ((context) => KibandaOtpPage(
+                                    data: _formKey.currentState!.value))));
+                          });
                     },
                     builder: (context, state) {
                       return state.maybeWhen(orElse: () {
@@ -154,9 +176,6 @@ class KibandaRegForm extends StatelessWidget {
                                   .read<CreateKibandaCubit>()
                                   .createKibanda(
                                       data: _formKey.currentState!.value);
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: ((context) => KibandaOtpPage(
-                                      data: _formKey.currentState!.value))));
                             }
                           },
                         );

@@ -15,9 +15,9 @@ class RestClient {
   String baseURL = 'https://stage.salesexecutiveapi.kwikbasket.com/api/';
   // String customerURL = 'https://stage.shop.kwikbasket.com/api/';
   String customerURL = 'https://www.kwikbasket.com/api/';
-  static String url = 'https://stage.shop.kwikbasket.com';
+  static String url = 'https://www.kwikbasket.com';
 
-  // Stage URL
+  // // Stage URL
   // String kwikUrl = 'https://stage.shop.kwikbasket.com';
 
   // Production URL
