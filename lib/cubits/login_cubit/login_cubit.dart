@@ -25,16 +25,16 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 
-  kwikLogin({required Map<String, dynamic> data}) async {
-    emit(LoginLoading());
-    try {
-      ApiResponse apiResponse = ApiResponse.fromJson(await ApiService.postKwik(
-          data: data, path: '/admin/index.php?path=common/login'));
+  // kwikLogin({required Map<String, dynamic> data}) async {
+  //   emit(LoginLoading());
+  //   try {
+  //     ApiResponse apiResponse = ApiResponse.fromJson(await ApiService.postKwik(
+  //         data: data, path: '/admin/index.php?path=common/login'));
           
-      LoginResponse loginResponse = LoginResponse.fromJson(apiResponse.data!);
-      emit(LoginSuccess(loginResponse: loginResponse));
-    } on String catch (e) {
-      emit(LoginFailed(error: e));
-    }
-  }
+  //     LoginResponse loginResponse = LoginResponse.fromJson(apiResponse.data!);
+  //     emit(LoginSuccess(loginResponse: loginResponse));
+  //   } on String catch (e) {
+  //     emit(LoginFailed(error: e));
+  //   }
+  // }
 }
