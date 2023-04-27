@@ -324,7 +324,7 @@ class _CardWidgetState extends State<CardWidget> {
 class SelectedKibandaCubit extends Cubit<Kibanda?> {
   SelectedKibandaCubit() : super(null);
   save(Kibanda? kibanda) {
-    emit(kibanda);
+    emit(kibanda!.copyWith(address_id: 0));
   }
 }
 
@@ -588,7 +588,7 @@ class MoreWidget extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.white,
         title: Row(
-          children:const [
+          children: const [
             SizedBox(
               width: 4,
             ),
