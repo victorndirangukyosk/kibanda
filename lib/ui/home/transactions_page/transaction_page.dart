@@ -665,6 +665,9 @@ class CardThree extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
+                        AutoRouter.of(context).push(TransactionalMpesaRoute(
+                            orderId:
+                                int.parse(cancelledTransactions.order_id!)));
                         // var amount = numberFunction(getNumPrice(data.total!));
                         // amount = amount.replaceAll(".", "");
                         // var orderIds = [];

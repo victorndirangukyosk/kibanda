@@ -324,7 +324,7 @@ class _CardWidgetState extends State<CardWidget> {
 class SelectedKibandaCubit extends Cubit<Kibanda?> {
   SelectedKibandaCubit() : super(null);
   save(Kibanda? kibanda) {
-    emit(kibanda!.copyWith(address_id: 0));
+    emit(kibanda!.copyWith(address_id: 515));
   }
 }
 
