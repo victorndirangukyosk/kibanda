@@ -29,36 +29,6 @@ class KibandaOtpPage extends StatelessWidget {
               Constants.kwik_logo,
               height: 40,
             ),
-             BlocConsumer<CuxtomerOtpCubit, CuxtomerOtpState>(
-              listener: (context, state) {
-                state.maybeWhen(
-                    orElse: () {},
-                    success: () {
-                      context.read<KibandalistCubit>().getVibandas();
-                      AutoRouter.of(context).push(const MainHomeRoute());
-                    });
-              },
-              builder: (context, state) {
-                return state.maybeWhen(orElse: () {
-                  return CupertinoButton(
-                    color: Palette.orangeColor,
-                    onPressed: () async {
-                      await context.read<CuxtomerOtpCubit>().fetchOTP(data: {
-                        ...data,
-                        'signup_otp': otpController.text,
-                      });
-                    },
-                    child: const Text('Fetch OTP'),
-                  );
-                }, loading: () {
-                  return SpinKitCircle(
-                    color: Palette.orangeColor,
-                  );
-                });
-              },
-            ),
-           
-
             const SizedBox(
               height: 10,
             ),
