@@ -10,23 +10,18 @@ part 'cuxtomer_otp_state.dart';
 part 'cuxtomer_otp_cubit.freezed.dart';
 
 class CuxtomerOtpCubit extends Cubit<CuxtomerOtpState> {
-  CuxtomerOtpCubit() : super(CuxtomerOtpState.initial());
-  TokenCubit tokenCubit = GetIt.I<TokenCubit>();
+  CuxtomerOtpCubit() : super(const CuxtomerOtpState.initial());
+  // TokenCubit tokenCubit = GetIt.I<TokenCubit>();
 
   fetchOTP({required data}) async {
     emit(const CuxtomerOtpState.loading());
     try {
-      final jwt = JWT.decode(tokenCubit.state);
+      // final jwt = JWT.decode(tokenCubit.state);
 
       await ApiService.postKwik(
-          data: {
-            ...data,
-            'customer_group_id': 15,
-            'customer_experience_id': jwt.payload['user_id'],
-            'dob': '1990-01-01',
-            'status': 1
-          },
-          path: '/api/customer/signup/signupByOtp/api/customer/signup/FetchCustomerOTP',
+          data: data,
+          path:
+              '/api/customer/signup/signupByOtp/api/customer/signup/FetchCustomerOTP',
           options: Options(
             headers: {
               'Content-Type':

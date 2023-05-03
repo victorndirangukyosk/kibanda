@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
           BlocProvider.of<CustomerTokenCubit>(context);
       CartProductMetadataCubit cartProductMetadataCubit =
           BlocProvider.of<CartProductMetadataCubit>(context);
-      GetIt.I.registerSingleton(tokenCubit);
+      GetIt.I.registerSingleton<TokenCubit>(tokenCubit);
       GetIt.I.registerSingleton(customertokenCubit);
       GetIt.I.registerSingleton(sessionCubit);
       GetIt.I.registerSingleton(cartProductMetadataCubit);

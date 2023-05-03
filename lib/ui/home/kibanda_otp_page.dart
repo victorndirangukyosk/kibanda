@@ -65,7 +65,7 @@ class KibandaOtpPage extends StatelessWidget {
                     child: const Text('Register'),
                   );
                 }, loading: () {
-                  return SpinKitCircle(
+                  return const SpinKitCircle(
                     color: Palette.orangeColor,
                   );
                 });
