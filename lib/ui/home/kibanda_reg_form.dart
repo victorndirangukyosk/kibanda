@@ -10,6 +10,7 @@ import 'package:kibanda_kb/constants/constants.dart';
 import 'package:kibanda_kb/cubits/cubit/OTP_cubit/cuxtomer_otp_cubit.dart';
 import 'package:kibanda_kb/ui/home/kibanda_otp_page.dart';
 
+import 'package:flutter/services.dart';
 import '../../cubits/kibanda/create_kibanda_cubit.dart';
 import '../../cubits/obscure_password_cubit.dart';
 
@@ -35,7 +36,30 @@ class KibandaRegForm extends StatelessWidget {
               listener: (context, state) {
                 state.maybeWhen(
                     orElse: () {},
-                    success: () {
+                    success: (data) async {
+                      await showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text(data['message']),
+                              content: Text(data['data']['otp'].toString()),
+                              actions: [
+                                TextButton(
+                                    onPressed: () async {
+                                      await Clipboard.setData(ClipboardData(
+                                          text:
+                                              data['data']['otp'].toString()));
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                              content: Text(
+                                                  'Code ${data['data']['otp']} Copied to Clipboard')));
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text('OK'))
+                              ],
+                            );
+                          });
+
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: ((context) => KibandaOtpPage(
                               data: _formKey.currentState!.value))));

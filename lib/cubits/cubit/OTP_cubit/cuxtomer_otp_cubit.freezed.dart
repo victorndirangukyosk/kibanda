@@ -20,7 +20,7 @@ mixin _$CuxtomerOtpState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() success,
+    required TResult Function(Map<String, dynamic> data) success,
     required TResult Function() failed,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$CuxtomerOtpState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? success,
+    TResult? Function(Map<String, dynamic> data)? success,
     TResult? Function()? failed,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$CuxtomerOtpState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? success,
+    TResult Function(Map<String, dynamic> data)? success,
     TResult Function()? failed,
     required TResult orElse(),
   }) =>
@@ -125,7 +125,7 @@ class _$_Initial implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() success,
+    required TResult Function(Map<String, dynamic> data) success,
     required TResult Function() failed,
   }) {
     return initial();
@@ -136,7 +136,7 @@ class _$_Initial implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? success,
+    TResult? Function(Map<String, dynamic> data)? success,
     TResult? Function()? failed,
   }) {
     return initial?.call();
@@ -147,7 +147,7 @@ class _$_Initial implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? success,
+    TResult Function(Map<String, dynamic> data)? success,
     TResult Function()? failed,
     required TResult orElse(),
   }) {
@@ -238,7 +238,7 @@ class _$_Loading implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() success,
+    required TResult Function(Map<String, dynamic> data) success,
     required TResult Function() failed,
   }) {
     return loading();
@@ -249,7 +249,7 @@ class _$_Loading implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? success,
+    TResult? Function(Map<String, dynamic> data)? success,
     TResult? Function()? failed,
   }) {
     return loading?.call();
@@ -260,7 +260,7 @@ class _$_Loading implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? success,
+    TResult Function(Map<String, dynamic> data)? success,
     TResult Function()? failed,
     required TResult orElse(),
   }) {
@@ -317,6 +317,8 @@ abstract class _$$_SuccessCopyWith<$Res> {
   factory _$$_SuccessCopyWith(
           _$_Success value, $Res Function(_$_Success) then) =
       __$$_SuccessCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Map<String, dynamic> data});
 }
 
 /// @nodoc
@@ -325,36 +327,66 @@ class __$$_SuccessCopyWithImpl<$Res>
     implements _$$_SuccessCopyWith<$Res> {
   __$$_SuccessCopyWithImpl(_$_Success _value, $Res Function(_$_Success) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? data = null,
+  }) {
+    return _then(_$_Success(
+      null == data
+          ? _value._data
+          : data // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_Success implements _Success {
-  const _$_Success();
+  const _$_Success(final Map<String, dynamic> data) : _data = data;
+
+  final Map<String, dynamic> _data;
+  @override
+  Map<String, dynamic> get data {
+    if (_data is EqualUnmodifiableMapView) return _data;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_data);
+  }
 
   @override
   String toString() {
-    return 'CuxtomerOtpState.success()';
+    return 'CuxtomerOtpState.success(data: $data)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Success);
+        (other.runtimeType == runtimeType &&
+            other is _$_Success &&
+            const DeepCollectionEquality().equals(other._data, _data));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_data));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_SuccessCopyWith<_$_Success> get copyWith =>
+      __$$_SuccessCopyWithImpl<_$_Success>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() success,
+    required TResult Function(Map<String, dynamic> data) success,
     required TResult Function() failed,
   }) {
-    return success();
+    return success(data);
   }
 
   @override
@@ -362,10 +394,10 @@ class _$_Success implements _Success {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? success,
+    TResult? Function(Map<String, dynamic> data)? success,
     TResult? Function()? failed,
   }) {
-    return success?.call();
+    return success?.call(data);
   }
 
   @override
@@ -373,12 +405,12 @@ class _$_Success implements _Success {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? success,
+    TResult Function(Map<String, dynamic> data)? success,
     TResult Function()? failed,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success();
+      return success(data);
     }
     return orElse();
   }
@@ -422,7 +454,12 @@ class _$_Success implements _Success {
 }
 
 abstract class _Success implements CuxtomerOtpState {
-  const factory _Success() = _$_Success;
+  const factory _Success(final Map<String, dynamic> data) = _$_Success;
+
+  Map<String, dynamic> get data;
+  @JsonKey(ignore: true)
+  _$$_SuccessCopyWith<_$_Success> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -463,7 +500,7 @@ class _$_Failed implements _Failed {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() success,
+    required TResult Function(Map<String, dynamic> data) success,
     required TResult Function() failed,
   }) {
     return failed();
@@ -474,7 +511,7 @@ class _$_Failed implements _Failed {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? success,
+    TResult? Function(Map<String, dynamic> data)? success,
     TResult? Function()? failed,
   }) {
     return failed?.call();
@@ -485,7 +522,7 @@ class _$_Failed implements _Failed {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? success,
+    TResult Function(Map<String, dynamic> data)? success,
     TResult Function()? failed,
     required TResult orElse(),
   }) {
