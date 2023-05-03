@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'create_kibanda_cubit.dart';
+part of 'cuxtomer_otp_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$CreateKibandaState {
+mixin _$CuxtomerOtpState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
@@ -69,16 +69,16 @@ mixin _$CreateKibandaState {
 }
 
 /// @nodoc
-abstract class $CreateKibandaStateCopyWith<$Res> {
-  factory $CreateKibandaStateCopyWith(
-          CreateKibandaState value, $Res Function(CreateKibandaState) then) =
-      _$CreateKibandaStateCopyWithImpl<$Res, CreateKibandaState>;
+abstract class $CuxtomerOtpStateCopyWith<$Res> {
+  factory $CuxtomerOtpStateCopyWith(
+          CuxtomerOtpState value, $Res Function(CuxtomerOtpState) then) =
+      _$CuxtomerOtpStateCopyWithImpl<$Res, CuxtomerOtpState>;
 }
 
 /// @nodoc
-class _$CreateKibandaStateCopyWithImpl<$Res, $Val extends CreateKibandaState>
-    implements $CreateKibandaStateCopyWith<$Res> {
-  _$CreateKibandaStateCopyWithImpl(this._value, this._then);
+class _$CuxtomerOtpStateCopyWithImpl<$Res, $Val extends CuxtomerOtpState>
+    implements $CuxtomerOtpStateCopyWith<$Res> {
+  _$CuxtomerOtpStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -95,7 +95,7 @@ abstract class _$$_InitialCopyWith<$Res> {
 
 /// @nodoc
 class __$$_InitialCopyWithImpl<$Res>
-    extends _$CreateKibandaStateCopyWithImpl<$Res, _$_Initial>
+    extends _$CuxtomerOtpStateCopyWithImpl<$Res, _$_Initial>
     implements _$$_InitialCopyWith<$Res> {
   __$$_InitialCopyWithImpl(_$_Initial _value, $Res Function(_$_Initial) _then)
       : super(_value, _then);
@@ -103,18 +103,12 @@ class __$$_InitialCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Initial with DiagnosticableTreeMixin implements _Initial {
+class _$_Initial implements _Initial {
   const _$_Initial();
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'CreateKibandaState.initial()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'CreateKibandaState.initial'));
+  String toString() {
+    return 'CuxtomerOtpState.initial()';
   }
 
   @override
@@ -201,7 +195,7 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
   }
 }
 
-abstract class _Initial implements CreateKibandaState {
+abstract class _Initial implements CuxtomerOtpState {
   const factory _Initial() = _$_Initial;
 }
 
@@ -214,7 +208,7 @@ abstract class _$$_LoadingCopyWith<$Res> {
 
 /// @nodoc
 class __$$_LoadingCopyWithImpl<$Res>
-    extends _$CreateKibandaStateCopyWithImpl<$Res, _$_Loading>
+    extends _$CuxtomerOtpStateCopyWithImpl<$Res, _$_Loading>
     implements _$$_LoadingCopyWith<$Res> {
   __$$_LoadingCopyWithImpl(_$_Loading _value, $Res Function(_$_Loading) _then)
       : super(_value, _then);
@@ -222,18 +216,12 @@ class __$$_LoadingCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Loading with DiagnosticableTreeMixin implements _Loading {
+class _$_Loading implements _Loading {
   const _$_Loading();
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'CreateKibandaState.loading()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'CreateKibandaState.loading'));
+  String toString() {
+    return 'CuxtomerOtpState.loading()';
   }
 
   @override
@@ -320,7 +308,7 @@ class _$_Loading with DiagnosticableTreeMixin implements _Loading {
   }
 }
 
-abstract class _Loading implements CreateKibandaState {
+abstract class _Loading implements CuxtomerOtpState {
   const factory _Loading() = _$_Loading;
 }
 
@@ -333,7 +321,7 @@ abstract class _$$_SuccessCopyWith<$Res> {
 
 /// @nodoc
 class __$$_SuccessCopyWithImpl<$Res>
-    extends _$CreateKibandaStateCopyWithImpl<$Res, _$_Success>
+    extends _$CuxtomerOtpStateCopyWithImpl<$Res, _$_Success>
     implements _$$_SuccessCopyWith<$Res> {
   __$$_SuccessCopyWithImpl(_$_Success _value, $Res Function(_$_Success) _then)
       : super(_value, _then);
@@ -341,18 +329,12 @@ class __$$_SuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Success with DiagnosticableTreeMixin implements _Success {
+class _$_Success implements _Success {
   const _$_Success();
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'CreateKibandaState.success()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'CreateKibandaState.success'));
+  String toString() {
+    return 'CuxtomerOtpState.success()';
   }
 
   @override
@@ -439,7 +421,7 @@ class _$_Success with DiagnosticableTreeMixin implements _Success {
   }
 }
 
-abstract class _Success implements CreateKibandaState {
+abstract class _Success implements CuxtomerOtpState {
   const factory _Success() = _$_Success;
 }
 
@@ -451,7 +433,7 @@ abstract class _$$_FailedCopyWith<$Res> {
 
 /// @nodoc
 class __$$_FailedCopyWithImpl<$Res>
-    extends _$CreateKibandaStateCopyWithImpl<$Res, _$_Failed>
+    extends _$CuxtomerOtpStateCopyWithImpl<$Res, _$_Failed>
     implements _$$_FailedCopyWith<$Res> {
   __$$_FailedCopyWithImpl(_$_Failed _value, $Res Function(_$_Failed) _then)
       : super(_value, _then);
@@ -459,18 +441,12 @@ class __$$_FailedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Failed with DiagnosticableTreeMixin implements _Failed {
+class _$_Failed implements _Failed {
   const _$_Failed();
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'CreateKibandaState.failed()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'CreateKibandaState.failed'));
+  String toString() {
+    return 'CuxtomerOtpState.failed()';
   }
 
   @override
@@ -557,6 +533,6 @@ class _$_Failed with DiagnosticableTreeMixin implements _Failed {
   }
 }
 
-abstract class _Failed implements CreateKibandaState {
+abstract class _Failed implements CuxtomerOtpState {
   const factory _Failed() = _$_Failed;
 }
