@@ -384,7 +384,7 @@ class _HomeWidgetState extends State<HomeWidget> {
       body: Column(
         children: [
           Container(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
                 color: Palette.orangeBackgroundColor,
                 borderRadius: BorderRadius.circular(10)),
@@ -425,14 +425,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     title: Text('Search Kibanda')),
                                 items: kibandaskistores!
                                     .map(
-                                        (e) => e.firstname! + ' ' + e.lastname!)
+                                        (e) => '${e.firstname!} ${e.lastname!}')
                                     .toList(),
                                 onChanged: (val) async {
-                                  var selectedKibanda = kibandaskistores!
-                                      .firstWhere((element) =>
-                                          element.firstname! +
-                                              ' ' +
-                                              element.lastname! ==
+                                  var selectedKibanda = kibandaskistores.firstWhere((element) =>
+                                          '${element.firstname!} ${element.lastname!}' ==
                                           val);
                                   context
                                       .read<SelectedKibandaCubit>()
