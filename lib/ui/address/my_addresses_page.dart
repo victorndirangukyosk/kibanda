@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:kibanda_kb/configuration/palette/palette.dart';
+import 'package:kibanda_kb/cubits/address/address/address_cubit.dart';
 import 'package:kibanda_kb/cubits/address/delivery_address_selection_cubit.dart';
 import 'package:kibanda_kb/cubits/cart/cart_cubit.dart';
+import 'package:kibanda_kb/models/address/address.dart';
 import 'package:kibanda_kb/routes/router.gr.dart';
 import 'package:kibanda_kb/utilities/toast/toast.dart';
 import 'package:star_menu/star_menu.dart';
@@ -17,10 +19,10 @@ class MyAddressesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
         elevation: 0,
         backgroundColor: Colors.white,
-        title: Text(
+        title: const Text(
           'My Addresses',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
         ),
@@ -28,67 +30,67 @@ class MyAddressesPage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20),
             child: Text(
               'Saved Addresses',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
-          // Expanded(
-          //     child: Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 20),
-          //   child: BlocConsumer<AddressCubit, AddressState>(
-          //     listener: (context, state) {
-          //       state.maybeWhen(
-          //           orElse: () {},
-          //           success: (v) {
-          //             ScaffoldMessenger.of(context).showMaterialBanner(
-          //                 MaterialBanner(
-          //                     content: Text('Hello'),
-          //                     actions: [Text('Dismiss')]));
-          //           },
-          //           failed: (e) {
-          //             AppToast.showToast(message: e, isError: true);
-          //           });
-          //     },
-          //     builder: (context, state) {
-          //       return state.maybeWhen(loading: () {
-          //         return Center(
-          //           child: SpinKitSpinningLines(color: Palette.greenColor),
-          //         );
-          //       }, success: (addresses) {
-          //         return ListView.separated(
-          //             physics: BouncingScrollPhysics(),
-          //             itemBuilder: (context, index) {
-          //               return SingleAddressWidget(
-          //                   isHome: true, address: addresses[index]);
-          //             },
-          //             separatorBuilder: (context, index) {
-          //               return SizedBox(
-          //                 height: 16,
-          //               );
-          //             },
-          //             itemCount: addresses.length);
-          //       }, orElse: () {
-          //         return Container();
-          //       });
-          //     },
-          //   ),
-          // )),
+          Expanded(
+              child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: BlocConsumer<AddressCubit, AddressState>(
+              listener: (context, state) {
+                state.maybeWhen(
+                    orElse: () {},
+                    success: (v) {
+                      ScaffoldMessenger.of(context).showMaterialBanner(
+                          const MaterialBanner(
+                              content: Text('Hello'),
+                              actions: [Text('Dismiss')]));
+                    },
+                    failed: (e) {
+                      AppToast.showToast(message: e, isError: true);
+                    });
+              },
+              builder: (context, state) {
+                return state.maybeWhen(loading: () {
+                  return const Center(
+                    child: SpinKitSpinningLines(color: Palette.greenColor),
+                  );
+                }, success: (addresses) {
+                  return ListView.separated(
+                      physics: const BouncingScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return SingleAddressWidget(
+                            isHome: true, address: addresses[index]);
+                      },
+                      separatorBuilder: (context, index) {
+                        return const SizedBox(
+                          height: 16,
+                        );
+                      },
+                      itemCount: addresses.length);
+                }, orElse: () {
+                  return Container();
+                });
+              },
+            ),
+          )),
           Card(
             color: Palette.greyColor,
             elevation: 0,
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
                     'Would you like to add a new\n address?',
                     textAlign: TextAlign.center,
@@ -99,12 +101,18 @@ class MyAddressesPage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 50),
                   child: CupertinoButton(
                     onPressed: () {
-                      // AutoRouter.of(context).push(ChooseLocationRoute());
+                      AutoRouter.of(context).push(const ChooseLocationRoute());
                     },
-                    padding: EdgeInsets.all(0),
+                    padding: const EdgeInsets.all(0),
                     child: Container(
                       height: 40,
-                      child: Center(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+
+                          // color: Palette.orangeColor,
+                          border:
+                              Border.all(color: Palette.orangeColor, width: 2)),
+                      child: const Center(
                         child: Text(
                           'Add Address',
                           textAlign: TextAlign.center,
@@ -112,16 +120,10 @@ class MyAddressesPage extends StatelessWidget {
                               color: Palette.orangeColor, fontSize: 16),
                         ),
                       ),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-
-                          // color: Palette.orangeColor,
-                          border:
-                              Border.all(color: Palette.orangeColor, width: 2)),
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 )
               ],
@@ -134,7 +136,7 @@ class MyAddressesPage extends StatelessWidget {
         color: Palette.greyColor,
         child: Row(
           children: [
-            SizedBox(
+            const SizedBox(
               width: 20,
             ),
             Column(
@@ -143,19 +145,16 @@ class MyAddressesPage extends StatelessWidget {
               children: [
                 Text(
                   '${context.watch<CartCubit>().state.length} items',
-                  style: TextStyle(color: Colors.black),
+                  style: const TextStyle(color: Colors.black),
                 ),
                 Text(
-                  "KES " +
-                      (context.watch<CartCubit>().getBalance() +
-                              context.watch<CartCubit>().getTax())
-                          .toString(),
-                  style: TextStyle(
+                  "KES ${context.watch<CartCubit>().getBalance() + context.watch<CartCubit>().getTax()}",
+                  style: const TextStyle(
                       color: Colors.black, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               width: 100,
             ),
             Expanded(
@@ -164,9 +163,9 @@ class MyAddressesPage extends StatelessWidget {
                 child: CupertinoButton(
                   color: Palette.orangeColor,
                   onPressed: () {
-                     if (context.read<DeliveryAddressSelectionCubit>().state !=
+                    if (context.read<DeliveryAddressSelectionCubit>().state !=
                         null) {
-                      AutoRouter.of(context).push(DeliveryDetailsRoute(orderData: {}));
+                      AutoRouter.of(context).pop();
                     } else {
                       AppToast.showToast(
                           message:
@@ -174,10 +173,10 @@ class MyAddressesPage extends StatelessWidget {
                           isError: true);
                     }
                   },
-                  padding: EdgeInsets.all(0),
+                  padding: const EdgeInsets.all(0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                    children: const [
                       Text(
                         'Schedule Delivery',
                         style: TextStyle(
@@ -192,7 +191,7 @@ class MyAddressesPage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 40,
             ),
           ],
@@ -204,40 +203,42 @@ class MyAddressesPage extends StatelessWidget {
 
 class SingleAddressWidget extends StatelessWidget {
   final bool isHome;
-  // final Address address;
-  const SingleAddressWidget({Key? key, required this.isHome}) : super(key: key);
+  final Address address;
+  const SingleAddressWidget(
+      {Key? key, required this.isHome, required this.address})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // context.read<DeliveryAddressSelectionCubit>().save(address);
+        context.read<DeliveryAddressSelectionCubit>().save(address);
       },
       child: Container(
         height: 110,
-        // decoration: BoxDecoration(
-        //     border: Border.all(
-        //         color: context.watch<DeliveryAddressSelectionCubit>().state ==
-        //                 address
-        //             ? Palette.greenColor
-        //             : Palette.placeholderGrey,
-        //         width: context.watch<DeliveryAddressSelectionCubit>().state ==
-        //                 address
-        //             ? 3
-        //             : 1),
-        //     borderRadius: BorderRadius.circular(4)),
-        padding: EdgeInsets.all(4),
+        decoration: BoxDecoration(
+            border: Border.all(
+                color: context.watch<DeliveryAddressSelectionCubit>().state ==
+                        address
+                    ? Palette.greenColor
+                    : Palette.placeholderGrey,
+                width: context.watch<DeliveryAddressSelectionCubit>().state ==
+                        address
+                    ? 3
+                    : 1),
+            borderRadius: BorderRadius.circular(4)),
+        padding: const EdgeInsets.all(4),
         child: Row(
           children: [
             Column(
-              children: [
+              children: const [
                 Icon(
                   CupertinoIcons.building_2_fill,
                   color: Palette.orangeColor,
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               width: 12,
             ),
             Expanded(
@@ -252,17 +253,16 @@ class SingleAddressWidget extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        ' address.address_type!,',
-                        style: TextStyle(
+                        address.address_type!,
+                        style: const TextStyle(
                             color: Palette.orangeColor,
                             fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
-                  Text(
-                      // '${address.address}, ${address.city}'
+                  Text('${address.address}, ${address.city}'
                       ''),
-                  SizedBox(
+                  const SizedBox(
                     height: 12,
                   )
                 ],
@@ -275,7 +275,6 @@ class SingleAddressWidget extends StatelessWidget {
                   //     onItemTapped: (index, controller) async {
                   //   controller.closeMenu();
                   // }),
-                  child: Icon(Icons.more_vert),
                   items: [
                     Container(
                       width: 200,
@@ -290,20 +289,25 @@ class SingleAddressWidget extends StatelessWidget {
                           CupertinoButton(
                               onPressed: () {},
                               color: Palette.greenColor,
-                              padding: EdgeInsets.all(0),
-                              child: Text('Edit Address')),
-                          SizedBox(
+                              padding: const EdgeInsets.all(0),
+                              child: const Text('Edit Address')),
+                          const SizedBox(
                             height: 4,
                           ),
                           CupertinoButton(
                               onPressed: () {},
                               color: CupertinoColors.destructiveRed,
-                              padding: EdgeInsets.all(0),
-                              child: Text('Delete Address')),
+                              padding: const EdgeInsets.all(0),
+                              child: const Text('Delete Address')),
                         ],
                       ),
                     ),
                   ],
+                  // params: StarMenuParameters(
+                  //     onItemTapped: (index, controller) async {
+                  //   controller.closeMenu();
+                  // }),
+                  child: const Icon(Icons.more_vert),
                 )
               ],
             )

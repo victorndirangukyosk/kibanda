@@ -90,7 +90,7 @@ class ApiService {
       throw 'An error has occured';
     }
   }
-  
+
   static Future<Map<String, dynamic>> postKwi(
       {required data, required String path, Options? options}) async {
     try {

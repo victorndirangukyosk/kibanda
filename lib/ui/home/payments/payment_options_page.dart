@@ -368,9 +368,9 @@ class _PaymentOPtionsPageState extends State<PaymentOPtionsPage> {
                             .state!
                             .code!,
                         "shipping_address_id": context
-                            .read<SelectedKibandaCubit>()
-                            .state!
-                            .address_id!,
+                                .read<DeliveryAddressSelectionCubit>()
+                                .state!
+                                .address_id!,
                         // "shipping_city_id": context
                         //     .read<DeliveryAddressSelectionCubit>()
                         //     .state!

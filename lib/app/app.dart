@@ -7,7 +7,10 @@ import 'package:kibanda_kb/authentication/customer_cookie_cubit.dart';
 import 'package:kibanda_kb/authentication/customer_token.dart';
 import 'package:kibanda_kb/authentication/token_cubit.dart';
 import 'package:kibanda_kb/configuration/palette/palette.dart';
+import 'package:kibanda_kb/cubits/address/address/address_cubit.dart';
+import 'package:kibanda_kb/cubits/address/address/address_type_index_cubit.dart';
 import 'package:kibanda_kb/cubits/address/delivery_address_selection_cubit.dart';
+import 'package:kibanda_kb/cubits/address/save_address_cubit/save_address_cubit.dart';
 import 'package:kibanda_kb/cubits/cart/cart_cubit.dart';
 import 'package:kibanda_kb/cubits/cart/cart_product_metadata_cubit.dart';
 import 'package:kibanda_kb/cubits/cubit/OTP_cubit/cuxtomer_otp_cubit.dart';
@@ -15,6 +18,7 @@ import 'package:kibanda_kb/cubits/cubit/authentication/session_cubit.dart';
 import 'package:kibanda_kb/cubits/cubit/category_products_refresh_cubit/category_products_refresh_cubit.dart';
 import 'package:kibanda_kb/cubits/cubit/delivery_timeslot/delivery_timeslot_cubit.dart';
 import 'package:kibanda_kb/cubits/cubit/featured_product_cubit.dart';
+import 'package:kibanda_kb/cubits/cubit/map/marker_cubit.dart';
 import 'package:kibanda_kb/cubits/cubit/payments/lipa_na_mpesa_cubit/lipa_na_mpesa_cubit.dart';
 
 import 'package:kibanda_kb/cubits/cubit/payments/payment_method_cubit/payment_method_cubit.dart';
@@ -31,6 +35,9 @@ import 'package:kibanda_kb/cubits/cubit/ui_cubits/transaction_top_index_cubit.da
 import 'package:kibanda_kb/cubits/cubit/validate_order_cubit.dart';
 import 'package:kibanda_kb/cubits/cubit/wishlist_cubit.dart';
 import 'package:kibanda_kb/cubits/customer_address/customer_address_cubit.dart';
+import 'package:kibanda_kb/cubits/customer_address/places_auto_complete_cubit.dart';
+import 'package:kibanda_kb/cubits/customer_address/selected_location_cubit.dart';
+import 'package:kibanda_kb/cubits/customer_address/user_location_cubit.dart';
 import 'package:kibanda_kb/cubits/kibanda/create_kibanda_cubit.dart';
 import 'package:kibanda_kb/cubits/kibandalist/kibandalist_cubit.dart';
 import 'package:kibanda_kb/cubits/login_cubit/login_cubit.dart';
@@ -95,11 +102,16 @@ class KwikBasketKibandaApp extends StatelessWidget {
         BlocProvider(create: (context) => FeaturedProductCubit()),
         BlocProvider(create: (context) => HomeBottomIndexCubit(0)),
         BlocProvider(create: (context) => TransactionIndexCubit(0)),
+        BlocProvider(create: (context) => PlacesAutoCompleteCubit([])),
+        BlocProvider(create: (context) => SelectedLocationCubit(null)),
+        BlocProvider(create: (context) => UserLocationCubit()),
+        BlocProvider(create: (context) => MarkerCubit({})),
         BlocProvider(
             create: (context) => TransactionCubit()..getallTransactions()),
         BlocProvider(create: (context) => CartCubit([])),
         BlocProvider(create: (context) => CartProductMetadataCubit([])),
         BlocProvider(create: (context) => SelectedVariationCubit()),
+        BlocProvider(create: (context) => AddressTypeIndexCubit(0)),
         BlocProvider(
           create: (context) => PaymentMethodCubit(),
         ),
@@ -132,6 +144,8 @@ class KwikBasketKibandaApp extends StatelessWidget {
         BlocProvider(create: (context) => HybridSelectedCubit()),
         BlocProvider(create: (context) => DeliveryAddressSelectionCubit(null)),
         BlocProvider(create: (context) => SelectDeliveryDateCubit()),
+        BlocProvider(create: (context) => SaveAddressCubit()),
+        BlocProvider(create: (context) => AddressCubit()..getAddresses()),
         BlocProvider(create: (context) => SelectTimeslotCubit('')),
         BlocProvider(create: (context) => CustomerIdCubit(0)),
         BlocProvider(

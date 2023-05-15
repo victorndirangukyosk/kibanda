@@ -13,6 +13,7 @@ import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
 import 'package:get_it/get_it.dart';
 import 'package:kibanda_kb/authentication/customer_token.dart';
 import 'package:kibanda_kb/configuration/palette/palette.dart';
+import 'package:kibanda_kb/cubits/address/address/address_cubit.dart';
 import 'package:kibanda_kb/cubits/cart/cart_cubit.dart';
 import 'package:kibanda_kb/cubits/cubit/authentication/session_cubit.dart';
 import 'package:kibanda_kb/cubits/cubit/authentication/token_cubit.dart';
@@ -324,7 +325,7 @@ class _CardWidgetState extends State<CardWidget> {
 class SelectedKibandaCubit extends Cubit<Kibanda?> {
   SelectedKibandaCubit() : super(null);
   save(Kibanda? kibanda) {
-    emit(kibanda!.copyWith(address_id: 515));
+    emit(kibanda!);
   }
 }
 
@@ -428,7 +429,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                         (e) => '${e.firstname!} ${e.lastname!}')
                                     .toList(),
                                 onChanged: (val) async {
-                                  var selectedKibanda = kibandaskistores.firstWhere((element) =>
+                                  var selectedKibanda =
+                                      kibandaskistores.firstWhere((element) =>
                                           '${element.firstname!} ${element.lastname!}' ==
                                           val);
                                   context
@@ -459,6 +461,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                   GetIt.I.registerSingleton<CustomerTokenModel>(
                                       CustomerTokenModel(
                                           token: data, cookie: cookieData));
+                                  context.read<AddressCubit>().getAddresses();
 
                                   /// This [val] is the value of the selected item (Customer ID)
                                   // context
