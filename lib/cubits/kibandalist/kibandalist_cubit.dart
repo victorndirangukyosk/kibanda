@@ -7,20 +7,46 @@ part 'kibandalist_state.dart';
 part 'kibandalist_cubit.freezed.dart';
 
 class KibandalistCubit extends Cubit<KibandalistState> {
-  KibandalistCubit() : super(KibandalistState.initial());
+  KibandalistCubit() : super(const KibandalistState.initial());
 
   getVibandas() async {
     emit(const KibandalistState.loading());
     try {
       var response = await RestClient().dio!.get(
-          'https://stage.salesexecutiveapi.kwikbasket.com/api/kibandalist');
+          'https://stage.salesexecutiveapi.kwikbasket.com/api/kibandalist',
+          queryParameters: {
+            'limit': '100',
+          });
       List kibandasinJson = response.data['data'];
       List<Kibanda> kibandaskis = kibandasinJson.map((e) {
         return Kibanda.fromJson(e);
       }).toList();
-      emit(KibandalistState.success(kibandaskistores: kibandaskis));
+      emit(KibandalistState.success(
+          kibandaskistores: kibandaskis, currentPage: 1));
     } catch (e) {
       emit(KibandalistState.failed());
     }
   }
+
+  getMoreVibandas({ required int page,}) async {
+    emit(const KibandalistState.loading());
+    try {
+      var response = await RestClient().dio!.get(
+          'https://stage.salesexecutiveapi.kwikbasket.com/api/kibandalist',
+          queryParameters: {
+            'limit': 25,
+            'page': page + 1,
+            
+          });
+      List kibandasinJson = response.data['data'];
+      List<Kibanda> kibandaskis = kibandasinJson.map((e) {
+        return Kibanda.fromJson(e);
+      }).toList();
+      emit(KibandalistState.success(kibandaskistores: kibandaskis, currentPage: page + 1));
+    } catch (e) {
+      emit(KibandalistState.failed());
+    }
+  }
+
+
 }
