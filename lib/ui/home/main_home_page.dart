@@ -415,104 +415,87 @@ class _HomeWidgetState extends State<HomeWidget> {
                           loading: () => const Center(
                                 child: CircularProgressIndicator(),
                               ),
-                          success: ((kibandaskistores, page) =>
-                              NotificationListener(
-                                onNotification:
-                                    (ScrollNotification scrollInfo) {
-                                  if (scrollInfo.metrics.pixels ==
-                                      scrollInfo.metrics.maxScrollExtent) {
-                                    context
-                                        .read<KibandalistCubit>()
-                                        .loadMoreVibanda(
-                                            kibandaskis: kibandaskistores!,
-                                            pageNumber: page);
-                                  }
-                                  return false;
-                                },
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    FormBuilderSearchableDropdown<String>(
-                                      name: '',
-                                      decoration: const InputDecoration(
-                                        labelText: 'Select Kibanda',
-                                      ),
-                                      popupProps: const PopupProps.menu(
-                                          showSearchBox: true,
-                                          title: Text('Search Kibanda')),
-                                      items: kibandaskistores!
-                                          .map((e) =>
-                                              '${e.firstname!} ${e.lastname!}')
-                                          .toList(),
-                                      onChanged: (val) async {
-                                        var selectedKibanda = kibandaskistores
-                                            .firstWhere((element) =>
-                                                '${element.firstname!} ${element.lastname!}' ==
-                                                val);
-                                        context
-                                            .read<SelectedKibandaCubit>()
-                                            .save(selectedKibanda);
-                                        var response = await ApiService
-                                            .postCustomer(data: {
-                                          'telephone':
-                                              selectedKibanda.telephone,
-                                          'email': selectedKibanda.email
-                                        }, path: 'customer/login/loginascustomer');
-                                        var data = response['token'];
-                                        var customerID = int.parse(
-                                            response['data']['customer_id']);
-                                        var cookieData = response['cookie'];
-                                        context
-                                            .read<CustomerTokenCubit>()
-                                            .emit(data);
-                                        context
-                                            .read<CustomerIdCubit>()
-                                            .emit(customerID);
-                                        // context.read<TokenCubit>().emit(data);
-                                        context
-                                            .read<CustomerCookieCubit>()
-                                            .emit(cookieData);
-                                        CustomerCookieCubit cookieCubit =
-                                            BlocProvider.of<
-                                                CustomerCookieCubit>(context);
-                                        GetIt.I.registerSingleton(cookieCubit);
-                                        GetIt.I.registerSingleton<
-                                                CustomerTokenModel>(
-                                            CustomerTokenModel(
-                                                token: data,
-                                                cookie: cookieData));
-                                        context
-                                            .read<AddressCubit>()
-                                            .getAddresses();
-
-                                        /// This [val] is the value of the selected item (Customer ID)
-                                        // context
-                                        //     .read<VendorProductsCubit>()
-                                        //     .getVendorProductsByAllCategories(
-                                        //         customerId: selectedKibanda
-                                        //             .customer_id as int);
-                                        context
-                                            .read<FeaturedProductCubit>()
-                                            .getFeaturedProducts(
-                                              page: 1,
-                                              customerId: customerID,
-                                            );
-                                      },
+                          success: ((kibandaskistores, page) => Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  FormBuilderSearchableDropdown<String>(
+                                    name: '',
+                                    decoration: const InputDecoration(
+                                      labelText: 'Select Kibanda',
                                     ),
-                                    context
-                                        .watch<KibandalistCubit>()
-                                        .state
-                                        .maybeWhen(
-                                          orElse: () => Container(),
-                                          loadMore:
-                                              (kibandaskistores, currentPage) {
-                                            return const Center(
-                                              child: LinearProgressIndicator(),
-                                            );
-                                          },
-                                        )
-                                  ],
-                                ),
+                                    popupProps: const PopupProps.menu(
+                                        showSearchBox: true,
+                                        title: Text('Search Kibanda')),
+                                    items: kibandaskistores!
+                                        .map((e) =>
+                                            '${e.firstname!} ${e.lastname!}')
+                                        .toList(),
+                                    onChanged: (val) async {
+                                      var selectedKibanda = kibandaskistores
+                                          .firstWhere((element) =>
+                                              '${element.firstname!} ${element.lastname!}' ==
+                                              val);
+                                      context
+                                          .read<SelectedKibandaCubit>()
+                                          .save(selectedKibanda);
+                                      var response =
+                                          await ApiService.postCustomer(data: {
+                                        'telephone': selectedKibanda.telephone,
+                                        'email': selectedKibanda.email
+                                      }, path: 'customer/login/loginascustomer');
+                                      var data = response['token'];
+                                      var customerID = int.parse(
+                                          response['data']['customer_id']);
+                                      var cookieData = response['cookie'];
+                                      context
+                                          .read<CustomerTokenCubit>()
+                                          .emit(data);
+                                      context
+                                          .read<CustomerIdCubit>()
+                                          .emit(customerID);
+                                      // context.read<TokenCubit>().emit(data);
+                                      context
+                                          .read<CustomerCookieCubit>()
+                                          .emit(cookieData);
+                                      CustomerCookieCubit cookieCubit =
+                                          BlocProvider.of<CustomerCookieCubit>(
+                                              context);
+                                      GetIt.I.registerSingleton(cookieCubit);
+                                      GetIt.I.registerSingleton<
+                                              CustomerTokenModel>(
+                                          CustomerTokenModel(
+                                              token: data, cookie: cookieData));
+                                      context
+                                          .read<AddressCubit>()
+                                          .getAddresses();
+
+                                      /// This [val] is the value of the selected item (Customer ID)
+                                      // context
+                                      //     .read<VendorProductsCubit>()
+                                      //     .getVendorProductsByAllCategories(
+                                      //         customerId: selectedKibanda
+                                      //             .customer_id as int);
+                                      context
+                                          .read<FeaturedProductCubit>()
+                                          .getFeaturedProducts(
+                                            page: 1,
+                                            customerId: customerID,
+                                          );
+                                    },
+                                  ),
+                                  context
+                                      .watch<KibandalistCubit>()
+                                      .state
+                                      .maybeWhen(
+                                        orElse: () => Container(),
+                                        loadMore:
+                                            (kibandaskistores, currentPage) {
+                                          return const Center(
+                                            child: LinearProgressIndicator(),
+                                          );
+                                        },
+                                      )
+                                ],
                               )),
                           orElse: () {
                             return Container();
