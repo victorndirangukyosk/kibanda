@@ -24,12 +24,6 @@ void main() async {
 
   GetIt.I.registerSingleton<RestClientCustomer>(RestClientCustomer());
 
-  ///Get directory to store all state persists (Securely 😊😊)
-  Directory storageDirectory = await getApplicationDocumentsDirectory();
-
-  /// Initialize hydrated storage for all state persists storage
-  final storage =
-      await HydratedStorage.build(storageDirectory: storageDirectory);
   // HydratedBloc.storage.runZoned(() => runApp(KwikBasketKibandaApp()),
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: kIsWeb
