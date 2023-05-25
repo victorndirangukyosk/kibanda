@@ -65,8 +65,8 @@ dependencies:
   hydrated_bloc: ^9.1.0
   json_annotation: ^4.6.0
   json_serializable: ^6.3.1
-  local_auth: ^2.1.2
-  location: ^4.4.0
+  geolocator: ^9.0.2
+  local_auth: ^2.1.6
   location_geocoder: ^1.0.5
   overlay_support: ^2.0.1
   path_provider: ^2.0.1

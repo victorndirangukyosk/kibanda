@@ -1,20 +1,24 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:location/location.dart';
+import 'package:geolocator/geolocator.dart';
 
-class UserLocationCubit extends Cubit<LocationData> {
+class UserLocationCubit extends Cubit<Position> {
   UserLocationCubit()
-      : super(LocationData.fromMap({
-          "latitude": 0.0,
-          "longitude": 0.0,
-          "accuracy": 0.0,
-          "altitude": 0.0,
-          "heading": 0.0,
-          "speed": 0.0,
-          "speedAccuracy": 0.0,
-        })) {
-    Location _location = Location();
-    _location.onLocationChanged.listen((LocationData locationData) {
-      emit(locationData);
+      : super(Position(
+            longitude: 0,
+            latitude: 0,
+            timestamp: DateTime.now(),
+            accuracy: 1.0,
+            altitude: 0,
+            heading: 0,
+            speed: 0,
+            speedAccuracy: 0)) {
+    Geolocator.getPositionStream(
+        locationSettings: const LocationSettings(
+      accuracy: LocationAccuracy.high,
+    )).listen((Position? position) {
+      if (position != null) {
+        emit(position);
+      }
     });
   }
 }
