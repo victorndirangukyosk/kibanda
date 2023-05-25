@@ -9,7 +9,7 @@ part 'delivery_timeslot_cubit.freezed.dart';
 class DeliveryTimeslotCubit extends Cubit<DeliveryTimeslotState> {
   DeliveryTimeslotCubit() : super(DeliveryTimeslotState.initial());
 
-  getDeliveryTimeslots({required int address_id}) async {
+  getDeliveryTimeslots() async {
     emit(DeliveryTimeslotState.loading());
     try {
       var response = await ApiService.getData(
