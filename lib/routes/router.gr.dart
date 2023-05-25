@@ -11,16 +11,16 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i20;
-import 'package:flutter/material.dart' as _i21;
-import 'package:location_geocoder/geocoder.dart' as _i23;
+import 'package:auto_route/auto_route.dart' as _i22;
+import 'package:flutter/material.dart' as _i23;
+import 'package:location_geocoder/geocoder.dart' as _i25;
 
 import '../delivery/choose_location_page.dart' as _i17;
 import '../delivery/continue_with_this_location_page.dart' as _i18;
 import '../delivery/delivery_details_page.dart' as _i14;
 import '../delivery/save_address_page.dart' as _i19;
 import '../delivery/search_city_page.dart' as _i16;
-import '../models/order/order.dart' as _i22;
+import '../models/order/order.dart' as _i24;
 import '../ui/address/my_addresses_page.dart' as _i4;
 import '../ui/home/cart/cart_page.dart' as _i8;
 import '../ui/home/cart/order_success_page.dart' as _i6;
@@ -32,55 +32,57 @@ import '../ui/home/my_orders/single_order_page.dart' as _i11;
 import '../ui/home/payments/mpesa_payment_page.dart' as _i9;
 import '../ui/home/payments/payment_options_page.dart' as _i7;
 import '../ui/home/payments/transaction_mpesa_payment.dart' as _i13;
+import '../ui/home/product/products_page.dart' as _i21;
 import '../ui/home/transactions_page/transaction_page.dart' as _i12;
 import '../ui/login_page.dart' as _i2;
+import '../ui/my_customers/my_customers_page.dart' as _i20;
 import '../ui/splash_screen.dart' as _i1;
 
-class AppRouter extends _i20.RootStackRouter {
-  AppRouter([_i21.GlobalKey<_i21.NavigatorState>? navigatorKey])
+class AppRouter extends _i22.RootStackRouter {
+  AppRouter([_i23.GlobalKey<_i23.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i20.PageFactory> pagesMap = {
+  final Map<String, _i22.PageFactory> pagesMap = {
     SplashScreen.name: (routeData) {
-      return _i20.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.SplashScreen(),
       );
     },
     LoginRoute.name: (routeData) {
-      return _i20.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i2.LoginPage(),
       );
     },
     MainHomeRoute.name: (routeData) {
-      return _i20.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i3.MainHomePage(),
       );
     },
     MyAddressesRoute.name: (routeData) {
-      return _i20.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i4.MyAddressesPage(),
       );
     },
     ExpandedCategoriesRoute.name: (routeData) {
-      return _i20.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i5.ExpandedCategoriesPage(),
       );
     },
     OrderSuccessRoute.name: (routeData) {
-      return _i20.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i6.OrderSuccessPage(),
       );
     },
     PaymentOPtionsRoute.name: (routeData) {
       final args = routeData.argsAs<PaymentOPtionsRouteArgs>();
-      return _i20.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i7.PaymentOPtionsPage(
           key: args.key,
@@ -89,14 +91,14 @@ class AppRouter extends _i20.RootStackRouter {
       );
     },
     CartRoute.name: (routeData) {
-      return _i20.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i8.CartPage(),
       );
     },
     MpesaPaymentRoute.name: (routeData) {
       final args = routeData.argsAs<MpesaPaymentRouteArgs>();
-      return _i20.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i9.MpesaPaymentPage(
           key: args.key,
@@ -106,14 +108,14 @@ class AppRouter extends _i20.RootStackRouter {
       );
     },
     MyOrdersRoute.name: (routeData) {
-      return _i20.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i10.MyOrdersPage(),
       );
     },
     SingleOrderRoute.name: (routeData) {
       final args = routeData.argsAs<SingleOrderRouteArgs>();
-      return _i20.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i11.SingleOrderPage(
           key: args.key,
@@ -123,7 +125,7 @@ class AppRouter extends _i20.RootStackRouter {
     },
     TransactionRoute.name: (routeData) {
       final args = routeData.argsAs<TransactionRouteArgs>();
-      return _i20.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i12.TransactionPage(
           key: args.key,
@@ -134,7 +136,7 @@ class AppRouter extends _i20.RootStackRouter {
     },
     TransactionalMpesaRoute.name: (routeData) {
       final args = routeData.argsAs<TransactionalMpesaRouteArgs>();
-      return _i20.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i13.TransactionalMpesaPage(
           key: args.key,
@@ -144,7 +146,7 @@ class AppRouter extends _i20.RootStackRouter {
     },
     DeliveryDetailsRoute.name: (routeData) {
       final args = routeData.argsAs<DeliveryDetailsRouteArgs>();
-      return _i20.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i14.DeliveryDetailsPage(
           key: args.key,
@@ -155,7 +157,7 @@ class AppRouter extends _i20.RootStackRouter {
     SearchRoute.name: (routeData) {
       final args = routeData.argsAs<SearchRouteArgs>(
           orElse: () => const SearchRouteArgs());
-      return _i20.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i15.SearchPage(
           key: args.key,
@@ -166,7 +168,7 @@ class AppRouter extends _i20.RootStackRouter {
     SearchCityRoute.name: (routeData) {
       final args = routeData.argsAs<SearchCityRouteArgs>(
           orElse: () => const SearchCityRouteArgs());
-      return _i20.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i16.SearchCityPage(
           key: args.key,
@@ -175,14 +177,14 @@ class AppRouter extends _i20.RootStackRouter {
       );
     },
     ChooseLocationRoute.name: (routeData) {
-      return _i20.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i17.ChooseLocationPage(),
       );
     },
     ContinueWithThisLocationRoute.name: (routeData) {
       final args = routeData.argsAs<ContinueWithThisLocationRouteArgs>();
-      return _i20.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i18.ContinueWithThisLocationPage(
           key: args.key,
@@ -192,7 +194,7 @@ class AppRouter extends _i20.RootStackRouter {
     },
     SaveAddressRoute.name: (routeData) {
       final args = routeData.argsAs<SaveAddressRouteArgs>();
-      return _i20.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i19.SaveAddressPage(
           key: args.key,
@@ -200,96 +202,116 @@ class AppRouter extends _i20.RootStackRouter {
         ),
       );
     },
+    MyCustomersRoute.name: (routeData) {
+      return _i22.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i20.MyCustomersPage(),
+      );
+    },
+    ProductsRoute.name: (routeData) {
+      return _i22.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i21.ProductsPage(),
+      );
+    },
   };
 
   @override
-  List<_i20.RouteConfig> get routes => [
-        _i20.RouteConfig(
+  List<_i22.RouteConfig> get routes => [
+        _i22.RouteConfig(
           SplashScreen.name,
           path: '/',
         ),
-        _i20.RouteConfig(
+        _i22.RouteConfig(
           LoginRoute.name,
           path: '/login-page',
         ),
-        _i20.RouteConfig(
+        _i22.RouteConfig(
           MainHomeRoute.name,
           path: '/main-home-page',
         ),
-        _i20.RouteConfig(
+        _i22.RouteConfig(
           MyAddressesRoute.name,
           path: '/my-addresses-page',
         ),
-        _i20.RouteConfig(
+        _i22.RouteConfig(
           ExpandedCategoriesRoute.name,
           path: '/expanded-categories-page',
         ),
-        _i20.RouteConfig(
+        _i22.RouteConfig(
           OrderSuccessRoute.name,
           path: '/order-success-page',
         ),
-        _i20.RouteConfig(
+        _i22.RouteConfig(
           PaymentOPtionsRoute.name,
           path: '/payment-options-page',
         ),
-        _i20.RouteConfig(
+        _i22.RouteConfig(
           CartRoute.name,
           path: '/cart-page',
         ),
-        _i20.RouteConfig(
+        _i22.RouteConfig(
           MyAddressesRoute.name,
           path: '/my-addresses-page',
         ),
-        _i20.RouteConfig(
+        _i22.RouteConfig(
           MpesaPaymentRoute.name,
           path: '/mpesa-payment-page',
         ),
-        _i20.RouteConfig(
+        _i22.RouteConfig(
           MyOrdersRoute.name,
           path: '/my-orders-page',
         ),
-        _i20.RouteConfig(
+        _i22.RouteConfig(
           SingleOrderRoute.name,
           path: '/single-order-page',
         ),
-        _i20.RouteConfig(
+        _i22.RouteConfig(
           TransactionRoute.name,
           path: '/transaction-page',
         ),
-        _i20.RouteConfig(
+        _i22.RouteConfig(
           TransactionalMpesaRoute.name,
           path: '/transactional-mpesa-page',
         ),
-        _i20.RouteConfig(
+        _i22.RouteConfig(
           DeliveryDetailsRoute.name,
           path: '/delivery-details-page',
         ),
-        _i20.RouteConfig(
+        _i22.RouteConfig(
           SearchRoute.name,
           path: '/search-page',
         ),
-        _i20.RouteConfig(
+        _i22.RouteConfig(
           SearchCityRoute.name,
           path: '/search-city-page',
         ),
-        _i20.RouteConfig(
+        _i22.RouteConfig(
           ChooseLocationRoute.name,
           path: '/choose-location-page',
         ),
-        _i20.RouteConfig(
+        _i22.RouteConfig(
           ContinueWithThisLocationRoute.name,
           path: '/continue-with-this-location-page',
         ),
-        _i20.RouteConfig(
+        _i22.RouteConfig(
           SaveAddressRoute.name,
           path: '/save-address-page',
+        ),
+        _i22.RouteConfig(
+          MyCustomersRoute.name,
+          path: '/my-customers-page',
+        ),
+        _i22.RouteConfig(
+          ProductsRoute.name,
+          path: '/products-page',
         ),
       ];
 }
 
 /// generated route for
 /// [_i1.SplashScreen]
-class SplashScreen extends _i20.PageRouteInfo<void> {
+class SplashScreen extends _i22.PageRouteInfo<void> {
   const SplashScreen()
       : super(
           SplashScreen.name,
@@ -301,7 +323,7 @@ class SplashScreen extends _i20.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.LoginPage]
-class LoginRoute extends _i20.PageRouteInfo<void> {
+class LoginRoute extends _i22.PageRouteInfo<void> {
   const LoginRoute()
       : super(
           LoginRoute.name,
@@ -313,7 +335,7 @@ class LoginRoute extends _i20.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.MainHomePage]
-class MainHomeRoute extends _i20.PageRouteInfo<void> {
+class MainHomeRoute extends _i22.PageRouteInfo<void> {
   const MainHomeRoute()
       : super(
           MainHomeRoute.name,
@@ -325,7 +347,7 @@ class MainHomeRoute extends _i20.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.MyAddressesPage]
-class MyAddressesRoute extends _i20.PageRouteInfo<void> {
+class MyAddressesRoute extends _i22.PageRouteInfo<void> {
   const MyAddressesRoute()
       : super(
           MyAddressesRoute.name,
@@ -337,7 +359,7 @@ class MyAddressesRoute extends _i20.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i5.ExpandedCategoriesPage]
-class ExpandedCategoriesRoute extends _i20.PageRouteInfo<void> {
+class ExpandedCategoriesRoute extends _i22.PageRouteInfo<void> {
   const ExpandedCategoriesRoute()
       : super(
           ExpandedCategoriesRoute.name,
@@ -349,7 +371,7 @@ class ExpandedCategoriesRoute extends _i20.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i6.OrderSuccessPage]
-class OrderSuccessRoute extends _i20.PageRouteInfo<void> {
+class OrderSuccessRoute extends _i22.PageRouteInfo<void> {
   const OrderSuccessRoute()
       : super(
           OrderSuccessRoute.name,
@@ -361,9 +383,9 @@ class OrderSuccessRoute extends _i20.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i7.PaymentOPtionsPage]
-class PaymentOPtionsRoute extends _i20.PageRouteInfo<PaymentOPtionsRouteArgs> {
+class PaymentOPtionsRoute extends _i22.PageRouteInfo<PaymentOPtionsRouteArgs> {
   PaymentOPtionsRoute({
-    _i21.Key? key,
+    _i23.Key? key,
     required Map<String, dynamic> orderData,
   }) : super(
           PaymentOPtionsRoute.name,
@@ -383,7 +405,7 @@ class PaymentOPtionsRouteArgs {
     required this.orderData,
   });
 
-  final _i21.Key? key;
+  final _i23.Key? key;
 
   final Map<String, dynamic> orderData;
 
@@ -395,7 +417,7 @@ class PaymentOPtionsRouteArgs {
 
 /// generated route for
 /// [_i8.CartPage]
-class CartRoute extends _i20.PageRouteInfo<void> {
+class CartRoute extends _i22.PageRouteInfo<void> {
   const CartRoute()
       : super(
           CartRoute.name,
@@ -407,9 +429,9 @@ class CartRoute extends _i20.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i9.MpesaPaymentPage]
-class MpesaPaymentRoute extends _i20.PageRouteInfo<MpesaPaymentRouteArgs> {
+class MpesaPaymentRoute extends _i22.PageRouteInfo<MpesaPaymentRouteArgs> {
   MpesaPaymentRoute({
-    _i21.Key? key,
+    _i23.Key? key,
     required String orderReference,
     required Map<String, dynamic> data,
   }) : super(
@@ -432,7 +454,7 @@ class MpesaPaymentRouteArgs {
     required this.data,
   });
 
-  final _i21.Key? key;
+  final _i23.Key? key;
 
   final String orderReference;
 
@@ -446,7 +468,7 @@ class MpesaPaymentRouteArgs {
 
 /// generated route for
 /// [_i10.MyOrdersPage]
-class MyOrdersRoute extends _i20.PageRouteInfo<void> {
+class MyOrdersRoute extends _i22.PageRouteInfo<void> {
   const MyOrdersRoute()
       : super(
           MyOrdersRoute.name,
@@ -458,10 +480,10 @@ class MyOrdersRoute extends _i20.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i11.SingleOrderPage]
-class SingleOrderRoute extends _i20.PageRouteInfo<SingleOrderRouteArgs> {
+class SingleOrderRoute extends _i22.PageRouteInfo<SingleOrderRouteArgs> {
   SingleOrderRoute({
-    _i21.Key? key,
-    required _i22.Order order,
+    _i23.Key? key,
+    required _i24.Order order,
   }) : super(
           SingleOrderRoute.name,
           path: '/single-order-page',
@@ -480,9 +502,9 @@ class SingleOrderRouteArgs {
     required this.order,
   });
 
-  final _i21.Key? key;
+  final _i23.Key? key;
 
-  final _i22.Order order;
+  final _i24.Order order;
 
   @override
   String toString() {
@@ -492,9 +514,9 @@ class SingleOrderRouteArgs {
 
 /// generated route for
 /// [_i12.TransactionPage]
-class TransactionRoute extends _i20.PageRouteInfo<TransactionRouteArgs> {
+class TransactionRoute extends _i22.PageRouteInfo<TransactionRouteArgs> {
   TransactionRoute({
-    _i21.Key? key,
+    _i23.Key? key,
     dynamic transactionData,
     required Map<String, dynamic> orderData,
   }) : super(
@@ -517,7 +539,7 @@ class TransactionRouteArgs {
     required this.orderData,
   });
 
-  final _i21.Key? key;
+  final _i23.Key? key;
 
   final dynamic transactionData;
 
@@ -532,9 +554,9 @@ class TransactionRouteArgs {
 /// generated route for
 /// [_i13.TransactionalMpesaPage]
 class TransactionalMpesaRoute
-    extends _i20.PageRouteInfo<TransactionalMpesaRouteArgs> {
+    extends _i22.PageRouteInfo<TransactionalMpesaRouteArgs> {
   TransactionalMpesaRoute({
-    _i21.Key? key,
+    _i23.Key? key,
     required int orderId,
   }) : super(
           TransactionalMpesaRoute.name,
@@ -554,7 +576,7 @@ class TransactionalMpesaRouteArgs {
     required this.orderId,
   });
 
-  final _i21.Key? key;
+  final _i23.Key? key;
 
   final int orderId;
 
@@ -567,9 +589,9 @@ class TransactionalMpesaRouteArgs {
 /// generated route for
 /// [_i14.DeliveryDetailsPage]
 class DeliveryDetailsRoute
-    extends _i20.PageRouteInfo<DeliveryDetailsRouteArgs> {
+    extends _i22.PageRouteInfo<DeliveryDetailsRouteArgs> {
   DeliveryDetailsRoute({
-    _i21.Key? key,
+    _i23.Key? key,
     required Map<String, dynamic> orderData,
   }) : super(
           DeliveryDetailsRoute.name,
@@ -589,7 +611,7 @@ class DeliveryDetailsRouteArgs {
     required this.orderData,
   });
 
-  final _i21.Key? key;
+  final _i23.Key? key;
 
   final Map<String, dynamic> orderData;
 
@@ -601,9 +623,9 @@ class DeliveryDetailsRouteArgs {
 
 /// generated route for
 /// [_i15.SearchPage]
-class SearchRoute extends _i20.PageRouteInfo<SearchRouteArgs> {
+class SearchRoute extends _i22.PageRouteInfo<SearchRouteArgs> {
   SearchRoute({
-    _i21.Key? key,
+    _i23.Key? key,
     String? searchQuery,
   }) : super(
           SearchRoute.name,
@@ -623,7 +645,7 @@ class SearchRouteArgs {
     this.searchQuery,
   });
 
-  final _i21.Key? key;
+  final _i23.Key? key;
 
   final String? searchQuery;
 
@@ -635,9 +657,9 @@ class SearchRouteArgs {
 
 /// generated route for
 /// [_i16.SearchCityPage]
-class SearchCityRoute extends _i20.PageRouteInfo<SearchCityRouteArgs> {
+class SearchCityRoute extends _i22.PageRouteInfo<SearchCityRouteArgs> {
   SearchCityRoute({
-    _i21.Key? key,
+    _i23.Key? key,
     String? searchQuery,
   }) : super(
           SearchCityRoute.name,
@@ -657,7 +679,7 @@ class SearchCityRouteArgs {
     this.searchQuery,
   });
 
-  final _i21.Key? key;
+  final _i23.Key? key;
 
   final String? searchQuery;
 
@@ -669,7 +691,7 @@ class SearchCityRouteArgs {
 
 /// generated route for
 /// [_i17.ChooseLocationPage]
-class ChooseLocationRoute extends _i20.PageRouteInfo<void> {
+class ChooseLocationRoute extends _i22.PageRouteInfo<void> {
   const ChooseLocationRoute()
       : super(
           ChooseLocationRoute.name,
@@ -682,10 +704,10 @@ class ChooseLocationRoute extends _i20.PageRouteInfo<void> {
 /// generated route for
 /// [_i18.ContinueWithThisLocationPage]
 class ContinueWithThisLocationRoute
-    extends _i20.PageRouteInfo<ContinueWithThisLocationRouteArgs> {
+    extends _i22.PageRouteInfo<ContinueWithThisLocationRouteArgs> {
   ContinueWithThisLocationRoute({
-    _i21.Key? key,
-    required _i23.Address address,
+    _i23.Key? key,
+    required _i25.Address address,
   }) : super(
           ContinueWithThisLocationRoute.name,
           path: '/continue-with-this-location-page',
@@ -704,9 +726,9 @@ class ContinueWithThisLocationRouteArgs {
     required this.address,
   });
 
-  final _i21.Key? key;
+  final _i23.Key? key;
 
-  final _i23.Address address;
+  final _i25.Address address;
 
   @override
   String toString() {
@@ -716,10 +738,10 @@ class ContinueWithThisLocationRouteArgs {
 
 /// generated route for
 /// [_i19.SaveAddressPage]
-class SaveAddressRoute extends _i20.PageRouteInfo<SaveAddressRouteArgs> {
+class SaveAddressRoute extends _i22.PageRouteInfo<SaveAddressRouteArgs> {
   SaveAddressRoute({
-    _i21.Key? key,
-    required _i23.Address address,
+    _i23.Key? key,
+    required _i25.Address address,
   }) : super(
           SaveAddressRoute.name,
           path: '/save-address-page',
@@ -738,12 +760,36 @@ class SaveAddressRouteArgs {
     required this.address,
   });
 
-  final _i21.Key? key;
+  final _i23.Key? key;
 
-  final _i23.Address address;
+  final _i25.Address address;
 
   @override
   String toString() {
     return 'SaveAddressRouteArgs{key: $key, address: $address}';
   }
+}
+
+/// generated route for
+/// [_i20.MyCustomersPage]
+class MyCustomersRoute extends _i22.PageRouteInfo<void> {
+  const MyCustomersRoute()
+      : super(
+          MyCustomersRoute.name,
+          path: '/my-customers-page',
+        );
+
+  static const String name = 'MyCustomersRoute';
+}
+
+/// generated route for
+/// [_i21.ProductsPage]
+class ProductsRoute extends _i22.PageRouteInfo<void> {
+  const ProductsRoute()
+      : super(
+          ProductsRoute.name,
+          path: '/products-page',
+        );
+
+  static const String name = 'ProductsRoute';
 }

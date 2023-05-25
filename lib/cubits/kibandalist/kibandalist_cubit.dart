@@ -22,31 +22,54 @@ class KibandalistCubit extends Cubit<KibandalistState> {
         return Kibanda.fromJson(e);
       }).toList();
       emit(KibandalistState.success(
-          kibandaskistores: kibandaskis, currentPage: 1));
+          kibandaskistores: kibandaskis,
+          currentPage: 1,
+          isLastPage: kibandaskis.length < 25 ? true : false));
     } catch (e) {
-      emit(KibandalistState.failed());
+      emit(const KibandalistState.failed());
     }
   }
 
-  getMoreVibandas({ required int page,}) async {
-    emit(const KibandalistState.loading());
+  getMoreVibandas({
+    required List<Kibanda> kibandaskis,
+    required int page,
+  }) async {
+    // emit(KibandalistState.loadMore(
+    //     kibandaskistores: kibandaskis, currentPage: page));
     try {
       var response = await RestClient().dio!.get(
           'https://stage.salesexecutiveapi.kwikbasket.com/api/kibandalist',
           queryParameters: {
             'limit': 25,
             'page': page + 1,
-            
           });
       List kibandasinJson = response.data['data'];
-      List<Kibanda> kibandaskis = kibandasinJson.map((e) {
+      List<Kibanda> kibandaskis2 = kibandasinJson.map((e) {
         return Kibanda.fromJson(e);
       }).toList();
-      emit(KibandalistState.success(kibandaskistores: kibandaskis, currentPage: page + 1));
+      if (kibandaskis2.length < 25) {
+        emit(KibandalistState.success(
+          kibandaskistores: [...kibandaskis, ...kibandaskis2],
+          currentPage: page + 1,
+          isLastPage: true,
+        ));
+      } else {
+        emit(KibandalistState.success(
+          kibandaskistores: [...kibandaskis, ...kibandaskis2],
+          currentPage: page + 1,
+          isLastPage: true,
+        ));
+      }
     } catch (e) {
-      emit(KibandalistState.failed());
+      emit(const KibandalistState.failed());
     }
   }
+}
 
+class LoadingMoreCubit extends Cubit<bool> {
+  LoadingMoreCubit() : super(false);
 
+  setLoadingMore(bool value) {
+    emit(value);
+  }
 }

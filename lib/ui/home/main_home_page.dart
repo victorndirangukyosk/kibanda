@@ -34,6 +34,7 @@ import 'package:kibanda_kb/ui/home/home_pages/basket_widget.dart';
 
 import 'package:kibanda_kb/ui/home/home_pages/more_widget.dart';
 import 'package:kibanda_kb/ui/home/product/product_tile.dart';
+import 'package:kibanda_kb/ui/my_customers/my_customers_page.dart';
 import 'package:quantity_input/quantity_input.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
@@ -50,17 +51,10 @@ class MainHomePage extends StatefulWidget {
 }
 
 class _MainHomePageState extends State<MainHomePage> {
-  final _image1 =
-      'https://www.kindacode.com/wp-content/uploads/2021/08/face.png';
   // int _value = 1;
   @override
   Widget build(BuildContext context) {
-    List<Widget> pages = [
-      HomeWidget(),
-      // BasketWidget(),
-      CartPage(),
-      MoreWidget()
-    ];
+    List<Widget> pages = const [MyCustomersPage(), CartPage(), MoreWidget()];
     return Scaffold(
       body: pages[context.watch<HomeBottomIndexCubit>().state],
       bottomNavigationBar: BottomNavigationBar(
@@ -408,6 +402,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                   //     ),
                   //   ],
                   // ),
+                  CupertinoButton(
+                      child: Text("My Customers"),
+                      onPressed: () {
+                        AutoRouter.of(context).push(const MyCustomersRoute());
+                      }),
                   Flexible(
                       child: BlocBuilder<KibandalistCubit, KibandalistState>(
                     builder: (context, state) {
@@ -415,7 +414,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                           loading: () => const Center(
                                 child: CircularProgressIndicator(),
                               ),
-                          success: ((kibandaskistores, page) => Column(
+                          success: ((kibandaskistores, page,isLast) => Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   FormBuilderSearchableDropdown<String>(
@@ -453,7 +452,6 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       context
                                           .read<CustomerIdCubit>()
                                           .emit(customerID);
-                                      // context.read<TokenCubit>().emit(data);
                                       context
                                           .read<CustomerCookieCubit>()
                                           .emit(cookieData);
@@ -469,12 +467,6 @@ class _HomeWidgetState extends State<HomeWidget> {
                                           .read<AddressCubit>()
                                           .getAddresses();
 
-                                      /// This [val] is the value of the selected item (Customer ID)
-                                      // context
-                                      //     .read<VendorProductsCubit>()
-                                      //     .getVendorProductsByAllCategories(
-                                      //         customerId: selectedKibanda
-                                      //             .customer_id as int);
                                       context
                                           .read<FeaturedProductCubit>()
                                           .getFeaturedProducts(

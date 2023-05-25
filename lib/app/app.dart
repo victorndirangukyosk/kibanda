@@ -18,6 +18,7 @@ import 'package:kibanda_kb/cubits/cubit/authentication/session_cubit.dart';
 import 'package:kibanda_kb/cubits/cubit/category_products_refresh_cubit/category_products_refresh_cubit.dart';
 import 'package:kibanda_kb/cubits/cubit/delivery_timeslot/delivery_timeslot_cubit.dart';
 import 'package:kibanda_kb/cubits/cubit/featured_product_cubit.dart';
+import 'package:kibanda_kb/cubits/cubit/login_as_customer_cubit.dart';
 import 'package:kibanda_kb/cubits/cubit/map/marker_cubit.dart';
 import 'package:kibanda_kb/cubits/cubit/payments/lipa_na_mpesa_cubit/lipa_na_mpesa_cubit.dart';
 
@@ -115,6 +116,9 @@ class KwikBasketKibandaApp extends StatelessWidget {
         BlocProvider(
           create: (context) => PaymentMethodCubit(),
         ),
+        BlocProvider(create: (context) {
+          return LoginAsCustomerCubit();
+        }),
         BlocProvider(
           create: (context) => OrderDetailsCubit(),
         ),
@@ -152,6 +156,7 @@ class KwikBasketKibandaApp extends StatelessWidget {
           //Get them at first the category cubit is hit
           create: (context) => ProductCategoryCubit()..getProductCategories(),
         ),
+        BlocProvider(create: (context) => LoadingMoreCubit()),
       ],
       child: OverlaySupport.global(
         child: MaterialApp.router(

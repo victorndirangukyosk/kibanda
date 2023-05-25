@@ -20,7 +20,8 @@ mixin _$KibandalistState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Kibanda>? kibandaskistores, int currentPage)
+    required TResult Function(
+            List<Kibanda>? kibandaskistores, int currentPage, bool isLastPage)
         success,
     required TResult Function(List<Kibanda> kibandaskistores, int currentPage)
         loadMore,
@@ -31,7 +32,8 @@ mixin _$KibandalistState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Kibanda>? kibandaskistores, int currentPage)?
+    TResult? Function(
+            List<Kibanda>? kibandaskistores, int currentPage, bool isLastPage)?
         success,
     TResult? Function(List<Kibanda> kibandaskistores, int currentPage)?
         loadMore,
@@ -42,7 +44,9 @@ mixin _$KibandalistState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Kibanda>? kibandaskistores, int currentPage)? success,
+    TResult Function(
+            List<Kibanda>? kibandaskistores, int currentPage, bool isLastPage)?
+        success,
     TResult Function(List<Kibanda> kibandaskistores, int currentPage)? loadMore,
     TResult Function()? failed,
     required TResult orElse(),
@@ -135,7 +139,8 @@ class _$_Initial implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Kibanda>? kibandaskistores, int currentPage)
+    required TResult Function(
+            List<Kibanda>? kibandaskistores, int currentPage, bool isLastPage)
         success,
     required TResult Function(List<Kibanda> kibandaskistores, int currentPage)
         loadMore,
@@ -149,7 +154,8 @@ class _$_Initial implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Kibanda>? kibandaskistores, int currentPage)?
+    TResult? Function(
+            List<Kibanda>? kibandaskistores, int currentPage, bool isLastPage)?
         success,
     TResult? Function(List<Kibanda> kibandaskistores, int currentPage)?
         loadMore,
@@ -163,7 +169,9 @@ class _$_Initial implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Kibanda>? kibandaskistores, int currentPage)? success,
+    TResult Function(
+            List<Kibanda>? kibandaskistores, int currentPage, bool isLastPage)?
+        success,
     TResult Function(List<Kibanda> kibandaskistores, int currentPage)? loadMore,
     TResult Function()? failed,
     required TResult orElse(),
@@ -258,7 +266,8 @@ class _$_Loading implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Kibanda>? kibandaskistores, int currentPage)
+    required TResult Function(
+            List<Kibanda>? kibandaskistores, int currentPage, bool isLastPage)
         success,
     required TResult Function(List<Kibanda> kibandaskistores, int currentPage)
         loadMore,
@@ -272,7 +281,8 @@ class _$_Loading implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Kibanda>? kibandaskistores, int currentPage)?
+    TResult? Function(
+            List<Kibanda>? kibandaskistores, int currentPage, bool isLastPage)?
         success,
     TResult? Function(List<Kibanda> kibandaskistores, int currentPage)?
         loadMore,
@@ -286,7 +296,9 @@ class _$_Loading implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Kibanda>? kibandaskistores, int currentPage)? success,
+    TResult Function(
+            List<Kibanda>? kibandaskistores, int currentPage, bool isLastPage)?
+        success,
     TResult Function(List<Kibanda> kibandaskistores, int currentPage)? loadMore,
     TResult Function()? failed,
     required TResult orElse(),
@@ -348,7 +360,8 @@ abstract class _$$_SuccessCopyWith<$Res> {
           _$_Success value, $Res Function(_$_Success) then) =
       __$$_SuccessCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<Kibanda>? kibandaskistores, int currentPage});
+  $Res call(
+      {List<Kibanda>? kibandaskistores, int currentPage, bool isLastPage});
 }
 
 /// @nodoc
@@ -363,6 +376,7 @@ class __$$_SuccessCopyWithImpl<$Res>
   $Res call({
     Object? kibandaskistores = freezed,
     Object? currentPage = null,
+    Object? isLastPage = null,
   }) {
     return _then(_$_Success(
       kibandaskistores: freezed == kibandaskistores
@@ -373,6 +387,10 @@ class __$$_SuccessCopyWithImpl<$Res>
           ? _value.currentPage
           : currentPage // ignore: cast_nullable_to_non_nullable
               as int,
+      isLastPage: null == isLastPage
+          ? _value.isLastPage
+          : isLastPage // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -381,7 +399,9 @@ class __$$_SuccessCopyWithImpl<$Res>
 
 class _$_Success implements _Success {
   const _$_Success(
-      {final List<Kibanda>? kibandaskistores, required this.currentPage})
+      {final List<Kibanda>? kibandaskistores,
+      required this.currentPage,
+      required this.isLastPage})
       : _kibandaskistores = kibandaskistores;
 
   final List<Kibanda>? _kibandaskistores;
@@ -397,10 +417,12 @@ class _$_Success implements _Success {
 
   @override
   final int currentPage;
+  @override
+  final bool isLastPage;
 
   @override
   String toString() {
-    return 'KibandalistState.success(kibandaskistores: $kibandaskistores, currentPage: $currentPage)';
+    return 'KibandalistState.success(kibandaskistores: $kibandaskistores, currentPage: $currentPage, isLastPage: $isLastPage)';
   }
 
   @override
@@ -411,12 +433,17 @@ class _$_Success implements _Success {
             const DeepCollectionEquality()
                 .equals(other._kibandaskistores, _kibandaskistores) &&
             (identical(other.currentPage, currentPage) ||
-                other.currentPage == currentPage));
+                other.currentPage == currentPage) &&
+            (identical(other.isLastPage, isLastPage) ||
+                other.isLastPage == isLastPage));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_kibandaskistores), currentPage);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_kibandaskistores),
+      currentPage,
+      isLastPage);
 
   @JsonKey(ignore: true)
   @override
@@ -429,13 +456,14 @@ class _$_Success implements _Success {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Kibanda>? kibandaskistores, int currentPage)
+    required TResult Function(
+            List<Kibanda>? kibandaskistores, int currentPage, bool isLastPage)
         success,
     required TResult Function(List<Kibanda> kibandaskistores, int currentPage)
         loadMore,
     required TResult Function() failed,
   }) {
-    return success(kibandaskistores, currentPage);
+    return success(kibandaskistores, currentPage, isLastPage);
   }
 
   @override
@@ -443,13 +471,14 @@ class _$_Success implements _Success {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Kibanda>? kibandaskistores, int currentPage)?
+    TResult? Function(
+            List<Kibanda>? kibandaskistores, int currentPage, bool isLastPage)?
         success,
     TResult? Function(List<Kibanda> kibandaskistores, int currentPage)?
         loadMore,
     TResult? Function()? failed,
   }) {
-    return success?.call(kibandaskistores, currentPage);
+    return success?.call(kibandaskistores, currentPage, isLastPage);
   }
 
   @override
@@ -457,13 +486,15 @@ class _$_Success implements _Success {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Kibanda>? kibandaskistores, int currentPage)? success,
+    TResult Function(
+            List<Kibanda>? kibandaskistores, int currentPage, bool isLastPage)?
+        success,
     TResult Function(List<Kibanda> kibandaskistores, int currentPage)? loadMore,
     TResult Function()? failed,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success(kibandaskistores, currentPage);
+      return success(kibandaskistores, currentPage, isLastPage);
     }
     return orElse();
   }
@@ -512,10 +543,12 @@ class _$_Success implements _Success {
 abstract class _Success implements KibandalistState {
   const factory _Success(
       {final List<Kibanda>? kibandaskistores,
-      required final int currentPage}) = _$_Success;
+      required final int currentPage,
+      required final bool isLastPage}) = _$_Success;
 
   List<Kibanda>? get kibandaskistores;
   int get currentPage;
+  bool get isLastPage;
   @JsonKey(ignore: true)
   _$$_SuccessCopyWith<_$_Success> get copyWith =>
       throw _privateConstructorUsedError;
@@ -608,7 +641,8 @@ class _$_LoadMore implements _LoadMore {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Kibanda>? kibandaskistores, int currentPage)
+    required TResult Function(
+            List<Kibanda>? kibandaskistores, int currentPage, bool isLastPage)
         success,
     required TResult Function(List<Kibanda> kibandaskistores, int currentPage)
         loadMore,
@@ -622,7 +656,8 @@ class _$_LoadMore implements _LoadMore {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Kibanda>? kibandaskistores, int currentPage)?
+    TResult? Function(
+            List<Kibanda>? kibandaskistores, int currentPage, bool isLastPage)?
         success,
     TResult? Function(List<Kibanda> kibandaskistores, int currentPage)?
         loadMore,
@@ -636,7 +671,9 @@ class _$_LoadMore implements _LoadMore {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Kibanda>? kibandaskistores, int currentPage)? success,
+    TResult Function(
+            List<Kibanda>? kibandaskistores, int currentPage, bool isLastPage)?
+        success,
     TResult Function(List<Kibanda> kibandaskistores, int currentPage)? loadMore,
     TResult Function()? failed,
     required TResult orElse(),
@@ -738,7 +775,8 @@ class _$_Failed implements _Failed {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Kibanda>? kibandaskistores, int currentPage)
+    required TResult Function(
+            List<Kibanda>? kibandaskistores, int currentPage, bool isLastPage)
         success,
     required TResult Function(List<Kibanda> kibandaskistores, int currentPage)
         loadMore,
@@ -752,7 +790,8 @@ class _$_Failed implements _Failed {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Kibanda>? kibandaskistores, int currentPage)?
+    TResult? Function(
+            List<Kibanda>? kibandaskistores, int currentPage, bool isLastPage)?
         success,
     TResult? Function(List<Kibanda> kibandaskistores, int currentPage)?
         loadMore,
@@ -766,7 +805,9 @@ class _$_Failed implements _Failed {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Kibanda>? kibandaskistores, int currentPage)? success,
+    TResult Function(
+            List<Kibanda>? kibandaskistores, int currentPage, bool isLastPage)?
+        success,
     TResult Function(List<Kibanda> kibandaskistores, int currentPage)? loadMore,
     TResult Function()? failed,
     required TResult orElse(),
