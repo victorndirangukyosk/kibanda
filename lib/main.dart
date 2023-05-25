@@ -7,6 +7,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:kibanda_kb/app/app.dart';
 import 'package:kibanda_kb/utilities/rest_client/rest_client.dart';
 import 'package:kibanda_kb/utilities/rest_client/rest_client_customer.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,6 +15,11 @@ void main() async {
     final license = await rootBundle.loadString('google_fonts/OFL.txt');
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
   });
+
+  Map<Permission, PermissionStatus> statuses = await [
+    Permission.location,
+    Permission.storage,
+  ].request();
 
   ///Allow getit reassignments for smoother debuging
   GetIt.I.allowReassignment = true;

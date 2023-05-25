@@ -9,6 +9,7 @@ import 'package:kibanda_kb/authentication/token_cubit.dart';
 import 'package:kibanda_kb/configuration/palette/palette.dart';
 import 'package:kibanda_kb/cubits/cart/cart_product_metadata_cubit.dart';
 import 'package:kibanda_kb/cubits/cubit/authentication/session_cubit.dart';
+import 'package:kibanda_kb/cubits/customer_address/user_location_cubit.dart';
 import 'package:kibanda_kb/routes/router.gr.dart';
 import 'package:get_it/get_it.dart';
 
@@ -45,6 +46,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    context.read<UserLocationCubit>().getCurrentLocation();
     return Scaffold(
         body: Stack(
       children: [

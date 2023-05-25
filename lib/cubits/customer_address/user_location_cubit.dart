@@ -12,13 +12,13 @@ class UserLocationCubit extends Cubit<Position> {
             heading: 0,
             speed: 0,
             speedAccuracy: 0)) {
-    Geolocator.getPositionStream(
-        locationSettings: const LocationSettings(
-      accuracy: LocationAccuracy.high,
-    )).listen((Position? position) {
-      if (position != null) {
-        emit(position);
-      }
-    });
+    getCurrentLocation().then((value) => emit(value));
+  }
+
+  Future<Position> getCurrentLocation() async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    emit(position);
+    return position;
   }
 }
