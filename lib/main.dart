@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +7,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:kibanda_kb/app/app.dart';
 import 'package:kibanda_kb/utilities/rest_client/rest_client.dart';
 import 'package:kibanda_kb/utilities/rest_client/rest_client_customer.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,6 +15,11 @@ void main() async {
     final license = await rootBundle.loadString('google_fonts/OFL.txt');
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
   });
+
+  Map<Permission, PermissionStatus> statuses = await [
+    Permission.location,
+    Permission.storage,
+  ].request();
 
   ///Allow getit reassignments for smoother debuging
   GetIt.I.allowReassignment = true;
@@ -24,12 +29,6 @@ void main() async {
 
   GetIt.I.registerSingleton<RestClientCustomer>(RestClientCustomer());
 
-  ///Get directory to store all state persists (Securely 😊😊)
-  Directory storageDirectory = await getApplicationDocumentsDirectory();
-
-  /// Initialize hydrated storage for all state persists storage
-  final storage =
-      await HydratedStorage.build(storageDirectory: storageDirectory);
   // HydratedBloc.storage.runZoned(() => runApp(KwikBasketKibandaApp()),
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: kIsWeb

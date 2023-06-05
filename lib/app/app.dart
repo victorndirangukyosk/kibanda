@@ -7,7 +7,10 @@ import 'package:kibanda_kb/authentication/customer_cookie_cubit.dart';
 import 'package:kibanda_kb/authentication/customer_token.dart';
 import 'package:kibanda_kb/authentication/token_cubit.dart';
 import 'package:kibanda_kb/configuration/palette/palette.dart';
+import 'package:kibanda_kb/cubits/address/address/address_cubit.dart';
+import 'package:kibanda_kb/cubits/address/address/address_type_index_cubit.dart';
 import 'package:kibanda_kb/cubits/address/delivery_address_selection_cubit.dart';
+import 'package:kibanda_kb/cubits/address/save_address_cubit/save_address_cubit.dart';
 import 'package:kibanda_kb/cubits/cart/cart_cubit.dart';
 import 'package:kibanda_kb/cubits/cart/cart_product_metadata_cubit.dart';
 import 'package:kibanda_kb/cubits/cubit/OTP_cubit/cuxtomer_otp_cubit.dart';
@@ -15,6 +18,8 @@ import 'package:kibanda_kb/cubits/cubit/authentication/session_cubit.dart';
 import 'package:kibanda_kb/cubits/cubit/category_products_refresh_cubit/category_products_refresh_cubit.dart';
 import 'package:kibanda_kb/cubits/cubit/delivery_timeslot/delivery_timeslot_cubit.dart';
 import 'package:kibanda_kb/cubits/cubit/featured_product_cubit.dart';
+import 'package:kibanda_kb/cubits/cubit/login_as_customer_cubit.dart';
+import 'package:kibanda_kb/cubits/cubit/map/marker_cubit.dart';
 import 'package:kibanda_kb/cubits/cubit/payments/lipa_na_mpesa_cubit/lipa_na_mpesa_cubit.dart';
 
 import 'package:kibanda_kb/cubits/cubit/payments/payment_method_cubit/payment_method_cubit.dart';
@@ -31,6 +36,9 @@ import 'package:kibanda_kb/cubits/cubit/ui_cubits/transaction_top_index_cubit.da
 import 'package:kibanda_kb/cubits/cubit/validate_order_cubit.dart';
 import 'package:kibanda_kb/cubits/cubit/wishlist_cubit.dart';
 import 'package:kibanda_kb/cubits/customer_address/customer_address_cubit.dart';
+import 'package:kibanda_kb/cubits/customer_address/places_auto_complete_cubit.dart';
+import 'package:kibanda_kb/cubits/customer_address/selected_location_cubit.dart';
+import 'package:kibanda_kb/cubits/customer_address/user_location_cubit.dart';
 import 'package:kibanda_kb/cubits/kibanda/create_kibanda_cubit.dart';
 import 'package:kibanda_kb/cubits/kibandalist/kibandalist_cubit.dart';
 import 'package:kibanda_kb/cubits/login_cubit/login_cubit.dart';
@@ -48,7 +56,6 @@ import 'package:kibanda_kb/ui/home/main_home_page.dart';
 import 'package:kibanda_kb/ui/home/payments/payment_options_page.dart';
 import 'package:kibanda_kb/ui/home/product/expanded_product_widget.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:kibanda_kb/routes/router.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -65,111 +72,169 @@ class KwikBasketKibandaApp extends StatelessWidget {
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight,
     ]);
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => LoginCubit()),
-        BlocProvider(create: (context) => KibandalistCubit()..getVibandas()),
-        BlocProvider(create: (context) => CuxtomerOtpCubit()),
-        BlocProvider(create: (context) => TokenCubit('')),
-        BlocProvider(
-          create: (context) => SessionCubit(''),
-        ),
-        BlocProvider(
-          create: (context) => CategoryProductsRefreshCubit(),
-        ),
-        BlocProvider(
-          create: (context) => CategoriesTabIndexCubit(0),
-        ),
-        BlocProvider(
-          create: (context) => ProductsCubit(),
-        ),
-        BlocProvider(
-          create: (context) => RecentlySearchedProductsCubit([]),
-        ),
-        BlocProvider(create: (context) => CustomerCookieCubit('')),
-        BlocProvider(create: (context) => CustomerTokenCubit('')),
-        BlocProvider(create: (context) => VendorProductsCubit()),
-        BlocProvider(create: (context) => SelectedKibandaCubit()),
-        BlocProvider(create: (context) => TransactionalPaymentCubit()),
-        BlocProvider(create: (context) => KibandalistCubit()..getVibandas()),
-        BlocProvider(create: (context) => FeaturedProductCubit()),
-        BlocProvider(create: (context) => HomeBottomIndexCubit(0)),
-        BlocProvider(create: (context) => TransactionIndexCubit(0)),
-        BlocProvider(
-            create: (context) => TransactionCubit()..getallTransactions()),
-        BlocProvider(create: (context) => CartCubit([])),
-        BlocProvider(create: (context) => CartProductMetadataCubit([])),
-        BlocProvider(create: (context) => SelectedVariationCubit()),
-        BlocProvider(
-          create: (context) => PaymentMethodCubit(),
-        ),
-        BlocProvider(
-          create: (context) => OrderDetailsCubit(),
-        ),
-        BlocProvider(
-          create: (context) =>
-              SelectedPaymentMethodCubit(PaymentMethod(code: 'cod')),
-        ),
-        BlocProvider(
-          create: (context) => SelectedVariationCubit(),
-        ),
-        BlocProvider(
-          create: (context) => LipaNaMpesaCubit(),
-        ),
-        BlocProvider(create: (context) => SaveToBasketCubit()),
-        BlocProvider(create: (context) => ValidateOrderCubit()),
-        BlocProvider(create: (context) => WishlistCubit()),
+    // Disable the app during 8PM to 6AM
+    final now = DateTime.now();
+    if (now.hour >= 20 || now.hour <= 5) {
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Positioned(
+                top: 100,
+                right: 0,
+                left: 0,
+                child: Center(
+                  child: Text.rich(TextSpan(
+                      text: 'Kwik ',
+                      style: TextStyle(
+                          fontSize: 60,
+                          fontWeight: FontWeight.w900,
+                          color: Palette.orangeColor),
+                      children: [
+                        TextSpan(
+                            text: 'Kibanda',
+                            style: TextStyle(color: Palette.greenColor))
+                      ])),
+                ),
+              ),
+              // Time to wait
+              const SizedBox(height: 20),
 
-        BlocProvider(create: (context) => CreateKibandaCubit()),
-        BlocProvider(create: (context) => ObscurePasswordCubit(false)),
-        BlocProvider(create: (context) => CustomerAddressCubit()),
-        // BlocProvider(create: (context) => FeaturedProductCubit()),
-        BlocProvider(create: (context) => PlaceOrderCubit()),
-        BlocProvider(create: (context) => DeliveryTimeslotCubit()),
-        BlocProvider(
-          create: (context) => MyOrdersCubit()..getMyOrders(),
+              Center(
+                child: Text(
+                  'KwikBasket is currently unavailable. Please try again in the morning, from 5AM',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.roboto(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
-        BlocProvider(create: (context) => HybridSelectedCubit()),
-        BlocProvider(create: (context) => DeliveryAddressSelectionCubit(null)),
-        BlocProvider(create: (context) => SelectDeliveryDateCubit()),
-        BlocProvider(create: (context) => SelectTimeslotCubit('')),
-        BlocProvider(create: (context) => CustomerIdCubit(0)),
-        BlocProvider(
-          //Get them at first the category cubit is hit
-          create: (context) => ProductCategoryCubit()..getProductCategories(),
+      );
+    } else {
+      return MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => LoginCubit()),
+          BlocProvider(create: (context) => KibandalistCubit()..getVibandas()),
+          BlocProvider(create: (context) => CuxtomerOtpCubit()),
+          BlocProvider(create: (context) => TokenCubit('')),
+          BlocProvider(
+            create: (context) => SessionCubit(''),
+          ),
+          BlocProvider(
+            create: (context) => CategoryProductsRefreshCubit(),
+          ),
+          BlocProvider(
+            create: (context) => CategoriesTabIndexCubit(0),
+          ),
+          BlocProvider(
+            create: (context) => ProductsCubit(),
+          ),
+          BlocProvider(
+            create: (context) => RecentlySearchedProductsCubit([]),
+          ),
+          BlocProvider(create: (context) => CustomerCookieCubit('')),
+          BlocProvider(create: (context) => CustomerTokenCubit('')),
+          BlocProvider(create: (context) => VendorProductsCubit()),
+          BlocProvider(create: (context) => SelectedKibandaCubit()),
+          BlocProvider(create: (context) => TransactionalPaymentCubit()),
+          BlocProvider(create: (context) => KibandalistCubit()..getVibandas()),
+          BlocProvider(create: (context) => FeaturedProductCubit()),
+          BlocProvider(create: (context) => HomeBottomIndexCubit(0)),
+          BlocProvider(create: (context) => TransactionIndexCubit(0)),
+          BlocProvider(create: (context) => PlacesAutoCompleteCubit([])),
+          BlocProvider(create: (context) => SelectedLocationCubit(null)),
+          BlocProvider(create: (context) => UserLocationCubit()),
+          BlocProvider(create: (context) => MarkerCubit({})),
+          BlocProvider(
+              create: (context) => TransactionCubit()..getallTransactions()),
+          BlocProvider(create: (context) => CartCubit([])),
+          BlocProvider(create: (context) => CartProductMetadataCubit([])),
+          BlocProvider(create: (context) => SelectedVariationCubit()),
+          BlocProvider(create: (context) => AddressTypeIndexCubit(0)),
+          BlocProvider(
+            create: (context) => PaymentMethodCubit(),
+          ),
+          BlocProvider(create: (context) {
+            return LoginAsCustomerCubit();
+          }),
+          BlocProvider(
+            create: (context) => OrderDetailsCubit(),
+          ),
+          BlocProvider(
+            create: (context) =>
+                SelectedPaymentMethodCubit(PaymentMethod(code: 'cod')),
+          ),
+          BlocProvider(
+            create: (context) => SelectedVariationCubit(),
+          ),
+          BlocProvider(
+            create: (context) => LipaNaMpesaCubit(),
+          ),
+          BlocProvider(create: (context) => SaveToBasketCubit()),
+          BlocProvider(create: (context) => ValidateOrderCubit()),
+          BlocProvider(create: (context) => WishlistCubit()),
+
+          BlocProvider(create: (context) => CreateKibandaCubit()),
+          BlocProvider(create: (context) => ObscurePasswordCubit(false)),
+          BlocProvider(create: (context) => CustomerAddressCubit()),
+          // BlocProvider(create: (context) => FeaturedProductCubit()),
+          BlocProvider(create: (context) => PlaceOrderCubit()),
+          BlocProvider(create: (context) => DeliveryTimeslotCubit()),
+          BlocProvider(
+            create: (context) => MyOrdersCubit()..getMyOrders(),
+          ),
+          BlocProvider(create: (context) => HybridSelectedCubit()),
+          BlocProvider(
+              create: (context) => DeliveryAddressSelectionCubit(null)),
+          BlocProvider(create: (context) => SelectDeliveryDateCubit()),
+          BlocProvider(create: (context) => SaveAddressCubit()),
+          BlocProvider(create: (context) => AddressCubit()..getAddresses()),
+          BlocProvider(create: (context) => SelectTimeslotCubit('')),
+          BlocProvider(create: (context) => CustomerIdCubit(0)),
+          BlocProvider(
+            //Get them at first the category cubit is hit
+            create: (context) => ProductCategoryCubit()..getProductCategories(),
+          ),
+          BlocProvider(create: (context) => LoadingMoreCubit()),
+        ],
+        child: OverlaySupport.global(
+          child: MaterialApp.router(
+            title: 'Kwikbasket Delivery App',
+            debugShowCheckedModeBanner: false,
+            supportedLocales: const [
+              Locale('en'),
+            ],
+            localizationsDelegates: const [
+              FormBuilderLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            theme: ThemeData(
+                textTheme: GoogleFonts.poppinsTextTheme().copyWith(),
+                primaryColor: Palette.greenColor,
+                colorScheme: const ColorScheme(
+                    primary: Palette.greenColor,
+                    secondary: Palette.orangeColor,
+                    surface: Colors.white,
+                    background: Colors.white,
+                    error: Colors.red,
+                    onPrimary: Colors.white,
+                    onSecondary: Colors.white,
+                    onSurface: Palette.greenColor,
+                    onBackground: Palette.greenColor,
+                    onError: Colors.white,
+                    brightness: Brightness.light)),
+            routeInformationParser: _appRouter.defaultRouteParser(),
+            routerDelegate: _appRouter.delegate(),
+          ),
         ),
-      ],
-      child: OverlaySupport.global(
-        child: MaterialApp.router(
-          title: 'Kwikbasket Delivery App',
-          debugShowCheckedModeBanner: false,
-          supportedLocales: const [
-            Locale('en'),
-          ],
-          localizationsDelegates: const [
-            FormBuilderLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-          theme: ThemeData(
-              textTheme: GoogleFonts.poppinsTextTheme().copyWith(),
-              primaryColor: Palette.greenColor,
-              colorScheme: const ColorScheme(
-                  primary: Palette.greenColor,
-                  secondary: Palette.orangeColor,
-                  surface: Colors.white,
-                  background: Colors.white,
-                  error: Colors.red,
-                  onPrimary: Colors.white,
-                  onSecondary: Colors.white,
-                  onSurface: Palette.greenColor,
-                  onBackground: Palette.greenColor,
-                  onError: Colors.white,
-                  brightness: Brightness.light)),
-          routeInformationParser: _appRouter.defaultRouteParser(),
-          routerDelegate: _appRouter.delegate(),
-        ),
-      ),
-    );
+      );
+    }
   }
 }

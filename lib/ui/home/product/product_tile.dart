@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kibanda_kb/configuration/palette/palette.dart';
 import 'package:kibanda_kb/cubits/cart/cart_cubit.dart';
 import 'package:kibanda_kb/models/vendor_prodcuts/vendor_products.dart';
-import 'package:kibanda_kb/ui/home/product/expanded_product_widget.dart';
 import 'package:kibanda_kb/ui/home/product/product_widget.dart';
 
 class ProductTile extends StatelessWidget {
@@ -23,54 +22,37 @@ class ProductTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 8, bottom: 8),
       child: ListTile(
-        trailing: GestureDetector(
-            onTap: () async {
-              HapticFeedback.selectionClick();
-              await showCupertinoModalPopup(
-                  context: context,
-                  builder: (context) => Center(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ProductWidget(
-                                product: product,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ));
-            },
-            child: Icon(CupertinoIcons.add_circled_solid)),
+        trailing: const Icon(CupertinoIcons.chevron_right),
         enableFeedback: true,
         dense: false,
         shape: RoundedRectangleBorder(
-          side: BorderSide(width: 0.5),
-          borderRadius: BorderRadius.circular(20), //<-- SEE HERE
+          side: const BorderSide(width: 0.5, color: Palette.orangeColor),
+          borderRadius: BorderRadius.circular(10),
         ),
-        contentPadding: EdgeInsets.all(20.0),
-        onTap: () async {},
+        contentPadding: const EdgeInsets.all(20.0),
+        onTap: () async {
+          HapticFeedback.selectionClick();
+          await showCupertinoModalPopup(
+              context: context,
+              builder: (context) => Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ProductWidget(
+                            product: product,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ));
+        },
         leading: SizedBox(
           width: 100,
           height: 100,
-          child: GestureDetector(
-            onTap: () {
-              showCupertinoModalPopup(
-                  context: context,
-                  builder: (context) {
-                    return CupertinoPopupSurface(
-                      isSurfacePainted: false,
-                      child: CachedNetworkImage(
-                        imageUrl: product.image!,
-                        fit: BoxFit.fill,
-                      ),
-                    );
-                  });
-            },
-            child: CachedNetworkImage(
-              imageUrl: product.thumb!,
-            ),
+          child: CachedNetworkImage(
+            imageUrl: product.thumb!,
           ),
         ),
         title: Column(
@@ -80,11 +62,12 @@ class ProductTile extends StatelessWidget {
                 Expanded(
                   child: Text(
                     product.name!,
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                    style: const TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.w600),
                   ),
                 ),
                 inCart
-                    ? Icon(
+                    ? const Icon(
                         CupertinoIcons.cart,
                         color: Palette.orangeColor,
                       )
@@ -96,33 +79,32 @@ class ProductTile extends StatelessWidget {
                 Expanded(
                   child: Row(
                     children: [
-                      Text(
+                      const Text(
                         'Kshs',
                         style: TextStyle(
                             fontSize: 10, fontWeight: FontWeight.w600),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Text(
                         product.price!,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 12, fontWeight: FontWeight.w600),
                       ),
-                      SizedBox(width: 10),
-                      Text(
+                      const SizedBox(width: 10),
+                      const Text(
                         'per',
                         style: TextStyle(
                             fontSize: 10, fontWeight: FontWeight.w600),
                       ),
-                      SizedBox(width: 5),
+                      const SizedBox(width: 5),
                       Text(
                         product.unit!,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 12, fontWeight: FontWeight.w600),
                       ),
                     ],
                   ),
                 ),
-            
               ],
             ),
           ],

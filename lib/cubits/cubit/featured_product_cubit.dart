@@ -1,6 +1,3 @@
-import 'dart:ffi';
-
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:kibanda_kb/models/vendor_prodcuts/vendor_products.dart';
@@ -11,6 +8,10 @@ part 'featured_product_cubit.freezed.dart';
 
 class FeaturedProductCubit extends Cubit<FeaturedProductState> {
   FeaturedProductCubit() : super(const FeaturedProductState.initial());
+
+  saveState(FeaturedProductState state) {
+    emit(state);
+  }
 
   getFeaturedProducts({
     required int page,

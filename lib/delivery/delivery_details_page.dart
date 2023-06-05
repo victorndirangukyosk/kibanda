@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:math';
 
 import 'package:auto_route/auto_route.dart';
@@ -16,7 +18,6 @@ import 'package:kibanda_kb/cubits/select_date_timeslot/select_date_cubit.dart';
 import 'package:kibanda_kb/cubits/select_date_timeslot/select_timeslot_cubit.dart';
 import 'package:kibanda_kb/cubits/standard_express_delivery_mode_cubit.dart';
 import 'package:kibanda_kb/routes/router.gr.dart';
-import 'package:kibanda_kb/ui/home/main_home_page.dart';
 import 'package:kibanda_kb/utilities/toast/toast.dart';
 import 'package:intl/intl.dart';
 
@@ -29,14 +30,13 @@ class DeliveryDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<DeliveryTimeslotCubit>().getDeliveryTimeslots(
-        address_id: context.read<SelectedKibandaCubit>().state!.address_id!);
+    context.read<DeliveryTimeslotCubit>().getDeliveryTimeslots();
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
         elevation: 0,
         backgroundColor: Colors.white,
-        title: Text(
+        title: const Text(
           'Delivery Details',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
         ),
@@ -58,7 +58,7 @@ class DeliveryDetailsPage extends StatelessWidget {
             );
           }, success: (dates, timeslots) {
             return SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -73,21 +73,21 @@ class DeliveryDetailsPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 32,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
                       'Choose delivery schedule',
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 12,
                   ),
-                const Padding(
+                  const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
                       ' Kibanda orders are strictly next day deliveries',
@@ -96,7 +96,7 @@ class DeliveryDetailsPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Padding(
@@ -109,7 +109,7 @@ class DeliveryDetailsPage extends StatelessWidget {
                       ),
                       child: ListView.separated(
                           scrollDirection: Axis.horizontal,
-                          physics: BouncingScrollPhysics(),
+                          physics: const BouncingScrollPhysics(),
                           itemBuilder: (context, index) {
                             return DeliveryDateWidget(
                               index: index,
@@ -125,24 +125,24 @@ class DeliveryDetailsPage extends StatelessWidget {
                             );
                           },
                           separatorBuilder: (context, index) {
-                            return SizedBox(
+                            return const SizedBox(
                               width: 12,
                             );
                           },
                           itemCount: dates.length),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   AnimatedContainer(
-                    duration: Duration(milliseconds: 300),
+                    duration: const Duration(milliseconds: 300),
                     height:
                         context.watch<SelectDeliveryDateCubit>().state != null
                             ? 50
                             : 0,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
                       child: Text(
                         'Choose your delivery time',
                         style: TextStyle(
@@ -165,7 +165,7 @@ class DeliveryDetailsPage extends StatelessWidget {
                               : 0,
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         itemCount: timeslots[context
                                     .watch<SelectDeliveryDateCubit>()
                                     .state ??
@@ -193,7 +193,7 @@ class DeliveryDetailsPage extends StatelessWidget {
                             return Container();
                           }
                         },
-                        separatorBuilder: (context, index) => SizedBox(
+                        separatorBuilder: (context, index) => const SizedBox(
                           width: 10,
                         ),
                       ),
@@ -210,7 +210,7 @@ class DeliveryDetailsPage extends StatelessWidget {
         color: Palette.orangeColor,
         child: Row(
           children: [
-            SizedBox(
+            const SizedBox(
               width: 20,
             ),
             Column(
@@ -219,19 +219,19 @@ class DeliveryDetailsPage extends StatelessWidget {
               children: [
                 Text(
                   '${context.watch<CartCubit>().state.length} items',
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                 ),
                 Text(
                   "KES " +
                       (context.watch<CartCubit>().getBalance() +
                               context.watch<CartCubit>().getTax())
                           .toString(),
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               width: 100,
             ),
             Expanded(
@@ -286,7 +286,8 @@ class DeliveryDetailsPage extends StatelessWidget {
                     // return
                     CupertinoButton(
                   color: Colors.white,
-                  onPressed: () {
+                  onPressed: () async {
+                    await AutoRouter.of(context).push(const MyAddressesRoute());
                     if (context.read<SelectDeliveryDateCubit>().state == null ||
                         context.read<SelectTimeslotCubit>().state == null) {
                       AppToast.showToast(
@@ -307,7 +308,7 @@ class DeliveryDetailsPage extends StatelessWidget {
                             i++) {
                           data.addAll({
                             'shipping_address_id': context
-                                .read<SelectedKibandaCubit>()
+                                .read<DeliveryAddressSelectionCubit>()
                                 .state!
                                 .address_id!,
                             'products[$i][product_store_id]': context
@@ -405,12 +406,12 @@ class DeliveryDetailsPage extends StatelessWidget {
                       }
                     }
                   },
-                  padding: EdgeInsets.all(0),
+                  padding: const EdgeInsets.all(0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                    children: const [
                       Text(
-                        'Payment',
+                        'Proceed',
                         style: TextStyle(
                             color: Palette.orangeColor,
                             fontSize: 12,
@@ -427,7 +428,7 @@ class DeliveryDetailsPage extends StatelessWidget {
                 // ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 40,
             ),
           ],
@@ -454,13 +455,13 @@ class ModeOfDeliveryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoButton(
-      padding: EdgeInsets.all(0),
+      padding: const EdgeInsets.all(0),
       onPressed: () {
         context.read<StandardExpressDeliveryModeCubit>().toggle(!express);
       },
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 300),
-        padding: EdgeInsets.all(4),
+        duration: const Duration(milliseconds: 300),
+        padding: const EdgeInsets.all(4),
         height: 55,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
@@ -473,7 +474,7 @@ class ModeOfDeliveryWidget extends StatelessWidget {
             express
                 ? SvgPicture.asset('assets/svgs/express_truck.svg')
                 : SvgPicture.asset('assets/svgs/standard_truck.svg'),
-            SizedBox(
+            const SizedBox(
               width: 12,
             ),
             Column(
@@ -482,11 +483,11 @@ class ModeOfDeliveryWidget extends StatelessWidget {
               children: [
                 Text(
                   express ? 'Express' : 'Standard',
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Colors.black, fontWeight: FontWeight.bold),
                 ),
                 Text(express ? 'KES 100.00' : 'Free delivery',
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.black,
                     ))
               ],
@@ -512,12 +513,12 @@ class DeliveryDateWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoButton(
-      padding: EdgeInsets.all(0),
+      padding: const EdgeInsets.all(0),
       onPressed: () {
         context.read<SelectDeliveryDateCubit>().change(dateTime);
       },
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
             border: Border.all(
@@ -526,35 +527,37 @@ class DeliveryDateWidget extends StatelessWidget {
                     context.watch<SelectDeliveryDateCubit>().state == dateTime
                         ? Palette.greenColor
                         : Palette.placeholderGrey)),
-        padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+        padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
               width: 60,
-              padding: EdgeInsets.symmetric(vertical: 4),
+              padding: const EdgeInsets.symmetric(vertical: 4),
               child: Center(
                   child: Text(DateFormat('MMM').format(date),
-                      style: TextStyle(fontSize: 12, color: Colors.black))),
+                      style:
+                          const TextStyle(fontSize: 12, color: Colors.black))),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(0),
                   color: Palette.greyColor),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Text(date.day.toString(),
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            SizedBox(
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            const SizedBox(
               height: 10,
             ),
             Container(
               width: 60,
-              padding: EdgeInsets.symmetric(vertical: 4),
+              padding: const EdgeInsets.symmetric(vertical: 4),
               child: Center(
                 child: Text(
                   DateFormat('EEE').format(date),
-                  style: TextStyle(color: Colors.white, fontSize: 12),
+                  style: const TextStyle(color: Colors.white, fontSize: 12),
                 ),
               ),
               decoration: BoxDecoration(
@@ -578,15 +581,15 @@ class DeliveryTimeSlotWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoButton(
-      padding: EdgeInsets.all(0),
+      padding: const EdgeInsets.all(0),
       onPressed: () {
         context.read<SelectTimeslotCubit>().change(timeslot['timeslot']);
       },
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 300),
-        child:
-            Text(timeslot['timeslot'], style: TextStyle(color: Colors.black)),
-        padding: EdgeInsets.all(4),
+        duration: const Duration(milliseconds: 300),
+        child: Text(timeslot['timeslot'],
+            style: const TextStyle(color: Colors.black)),
+        padding: const EdgeInsets.all(4),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
