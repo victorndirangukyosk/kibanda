@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:kibanda_kb/models/kibanda_model/kibanda.dart';
+import 'package:kibanda_kb/services/api_service/rest_service.dart';
 import 'package:kibanda_kb/utilities/utilities.dart';
 
 part 'kibandalist_state.dart';
@@ -12,9 +13,11 @@ class KibandalistCubit extends Cubit<KibandalistState> {
   getVibandas() async {
     emit(const KibandalistState.loading());
     try {
+ 
       var response = await RestClient().dio!.get(
           'https://stage.salesexecutiveapi.kwikbasket.com/api/kibandalist',
           queryParameters: {
+
             'limit': '100',
           });
       List kibandasinJson = response.data['data'];
