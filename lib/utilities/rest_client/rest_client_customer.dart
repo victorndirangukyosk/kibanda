@@ -11,7 +11,7 @@ class RestClientCustomer {
 
   Dio? get dio => _dio;
 
-  String baseURL = 'https://stage.salesexecutiveapi.kwikbasket.com/api/';
+  String baseURL = 'http://3.145.212.139:5005/api/';
   // String customerURL = 'https://stage.shop.kwikbasket.com/api/';
 
   String customerURL = 'https://www.kwikbasket.com/api/';
