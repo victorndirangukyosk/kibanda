@@ -15,7 +15,7 @@ class KibandalistCubit extends Cubit<KibandalistState> {
     try {
  
       var response = await RestClient().dio!.get(
-          'https://stage.salesexecutiveapi.kwikbasket.com/api/kibandalist',
+          'http://3.145.212.139:5005/api/kibandalist',
           queryParameters: {
 
             'limit': '100',
@@ -41,7 +41,7 @@ class KibandalistCubit extends Cubit<KibandalistState> {
     //     kibandaskistores: kibandaskis, currentPage: page));
     try {
       var response = await RestClient().dio!.get(
-          'https://stage.salesexecutiveapi.kwikbasket.com/api/kibandalist',
+          'http://3.145.212.139:5005/api/kibandalist',
           queryParameters: {
             'limit': 25,
             'page': page + 1,
